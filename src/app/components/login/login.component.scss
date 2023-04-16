@@ -1,0 +1,11 @@
+.login__container{
+  width: 200px;
+  height: 500px;
+  background-color: #12345c;
+  border-radius: 20px 0 20px 40px;
+  position: fixed;
+  top: 90px;
+  right: 8%;
+  z-index: 5;
+  transition: all .2s ease-in-out;
+}
