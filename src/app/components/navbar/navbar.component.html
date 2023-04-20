@@ -5,7 +5,10 @@
       </a>
     </div>
     <div class="navbar__login">
-      <button (click)="showLoginComponent()" [ngClass]="{'navbar__login--btn--opened': isLoginComponentVisible, 'navbar__login--btn--closed': !isLoginComponentVisible}">Login</button>
+      <button
+      (click)="toggleLoginComponent()"
+      [ngClass]="{'navbar__login--btn--opened': isLoginComponentVisible,
+      'navbar__login--btn--closed': !isLoginComponentVisible}">Login</button>
       <ng-container *ngIf="isLoginComponentVisible">
         <app-login></app-login>
       </ng-container>

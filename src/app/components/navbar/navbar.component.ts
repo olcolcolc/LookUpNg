@@ -7,9 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  isLoginComponentVisible: boolean = false;
+  isLoginComponentVisible: boolean = true;
 
-  public showLoginComponent():void {
+  public toggleLoginComponent():void {
     this.isLoginComponentVisible = !this.isLoginComponentVisible;
   }
 
