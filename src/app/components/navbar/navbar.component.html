@@ -9,8 +9,7 @@
       (click)="toggleLoginComponent()"
       [ngClass]="{'navbar__login--btn--opened': isLoginComponentVisible,
       'navbar__login--btn--closed': !isLoginComponentVisible}">Login</button>
-      <ng-container *ngIf="isLoginComponentVisible">
-        <app-login></app-login>
-      </ng-container>
+        <app-login [@fadeInOut]="isLoginComponentVisible ? 'open' : 'close'">
+      </app-login>
     </div>
   </div>

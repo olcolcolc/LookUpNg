@@ -1,7 +1,10 @@
+
+
 <div class="login__container">
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" >
     <input type="text" formControlName="email">
     <input type="text" formControlName="password">
-    <button [disabled]="!loginForm.valid" (click)="submitLogin()"> Zatwierdź</button>
+    <button [disabled]="!loginForm.valid"
+            (click)="submitLogin()"> Zatwierdź</button>
     </form>
 </div>

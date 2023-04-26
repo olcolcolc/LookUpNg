@@ -4,16 +4,16 @@
   position: fixed;
   top: 90px;
   right: 5.16%;
-  opacity: 0;
-  animation: fade-in 0.5s ease-in-out forwards;
+  // opacity: 0;
+  // animation: fade-in 0.5s ease-in-out forwards;
   padding: 60px;
 
-  &--close {
-    display: block;
-    pointer-events: none;
-    inset: 0;
-    animation: fade-out 500ms forwards;
-  }
+  // &--closed {
+  //   // display: block;
+  //   // pointer-events: none;
+  //   // inset: 0;
+  //   animation: fade-out 500ms forwards;
+  // }
 
   & input {
     border-radius: 10px 20px 10px 20px;

@@ -1,0 +1,45 @@
+<form [formGroup]="myForm" class="selectContainer" (ngSubmit)="submitForm()">
+  <div formGroupName="selects">
+    <div class="form-group">
+      <label>Select 1</label>
+      <select class="form-control" formControlName="select1">
+        <option value="">--Select--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Select 2</label>
+      <select class="form-control" formControlName="select2">
+        <option value="">--Select--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Select 3</label>
+      <select class="form-control" formControlName="select3">
+        <option value="">--Select--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Select 4</label>
+      <select class="form-control" formControlName="select4">
+        <option value="">--Select--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Date</label>
+    <input type="date" class="form-control" formControlName="date">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

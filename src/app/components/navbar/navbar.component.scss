@@ -64,3 +64,29 @@
 
   }
 }
+
+.fade-out {
+  animation: fade-out 0.5s ease-in-out forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
