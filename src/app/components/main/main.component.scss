@@ -18,7 +18,7 @@
   &__textContainer{
     max-width: 50%;
     background-color: white;
-    padding: 20px 0 20px 5%;
+    padding: 10px 0 10px 5%;
     position: absolute;
     right: 5%;
     top: 25%;
@@ -46,6 +46,12 @@
       height: 100%;
       position: absolute;
       top: 0;
+    }
+
+    &__text{
+      margin-right: 150px;
+      word-wrap:break-word;
+      display: inline-block;
     }
   }
 
