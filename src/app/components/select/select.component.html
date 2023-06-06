@@ -22,6 +22,22 @@
       <fa-icon [icon]="luggageIcon"></fa-icon>
       Luggage
     </button>
-    <button class="selectContainer__downs__selectSubmit">Submit</button>
+    <button class="selectContainer__selectSubmit">Submit</button>
   </div>
+</div>
+
+<div class="submenu__ups">
+  <div class="submenu__origin">
+    <ul *ngIf="destinations">
+      <li *ngFor="let destination of destinations">{{ destination.desc }}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="submenu__date"></div>
+<div class="submenu__destination"></div>
+
+<div class="submenu__downs">
+  <div class="submenu__passengers"></div>
+  <div class="submenu__luggage"></div>
 </div>

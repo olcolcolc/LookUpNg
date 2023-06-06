@@ -25,10 +25,12 @@ export class SelectComponent implements OnInit {
   constructor(private destinationService: DestinationService) { }
 
   ngOnInit(): void {
-    this.destinationService.getDestinations().subscribe((destinations: Destination[]) => {
+    this.destinationService.getDestinations().subscribe(destinations => {
       this.destinations = destinations;
     });
   }
+
+
 
   onListItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
