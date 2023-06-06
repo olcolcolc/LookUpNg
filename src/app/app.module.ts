@@ -8,8 +8,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './components/main/main.component';
-import { SelectComponentsComponent } from './components/select/select.component';
+import { SelectComponent } from './components/select/select.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { DestinationService } from './services/destination.service';
+
 
 
 @NgModule({
@@ -18,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     NavbarComponent,
     LoginComponent,
     MainComponent,
-    SelectComponentsComponent
+    SelectComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [DestinationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

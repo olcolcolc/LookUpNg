@@ -1,12 +1,27 @@
 <div class="selectContainer">
-  <button class="selectContainer__origin">Origin</button>
-  <button class="selectContainer__date">Date</button>
-  <button class="selectContainer__destination">Destination</button><br>
-  <button class="selectContainer__passengers">Passengers</button>
-  <button class="selectContainer__luggage">Luggage</button>
-
-
-
-  <button class="selectContainer__selectSubmit">Submit</button>
+  <div class="selectContainer__ups">
+    <button class="selectContainer__ups__origin">
+      <fa-icon [icon]="originIcon"></fa-icon>
+      Origin
+    </button>
+    <button class="selectContainer__ups__date">
+      <fa-icon [icon]="dateIcon"></fa-icon>
+      Date
+    </button>
+    <button class="selectContainer__ups__destination">
+      <fa-icon [icon]="destinationIcon"></fa-icon>
+      Destination
+    </button>
+  </div>
+  <div class="selectContainer__downs">
+    <button class="selectContainer__downs__passengers">
+      <fa-icon [icon]="passengersIcon"></fa-icon>
+      Passengers
+    </button>
+    <button class="selectContainer__downs__luggage">
+      <fa-icon [icon]="luggageIcon"></fa-icon>
+      Luggage
+    </button>
+    <button class="selectContainer__downs__selectSubmit">Submit</button>
+  </div>
 </div>
-
