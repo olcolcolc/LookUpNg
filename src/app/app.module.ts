@@ -11,6 +11,8 @@ import { MainComponent } from './components/main/main.component';
 import { SelectComponent } from './components/select/select.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DestinationService } from './services/destination.service';
+import { OriginComponent } from './components/origin/origin.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,14 +22,16 @@ import { DestinationService } from './services/destination.service';
     NavbarComponent,
     LoginComponent,
     MainComponent,
-    SelectComponent
+    SelectComponent,
+    OriginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [DestinationService],
   bootstrap: [AppComponent]
