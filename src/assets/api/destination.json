@@ -1,0 +1,21 @@
+{ "destination" : [
+  {
+      "id" : "1",
+      "value" : "warsaw",
+      "desc" : "Warsaw",
+      "code" : "war"
+  },
+  {
+      "id" : "2",
+      "value" : "london",
+      "desc" : "London",
+      "code" : "lon"
+  },
+  {
+      "id" : "3",
+      "value" : "berlin",
+      "desc" : "Berlin",
+      "code" : "bln"
+  }
+]
+}
