@@ -1,3 +1,73 @@
+<div class="submenu__ups">
+  <div class="submenu__ups__origin">
+    <ul *ngIf="destinations">
+      <li style="color: grey">
+        Origin
+        <button class="submenu__ups__origin__close-button">
+          <svg
+            class="close-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+        </button>
+      </li>
+      <li class="cities" *ngFor="let destination of destinations">
+        {{ destination.desc }}
+      </li>
+    </ul>
+  </div>
+  <div class="submenu__ups__date">
+    <button class="submenu__ups__date__close-button">
+      <svg
+        class="close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-x"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="submenu__ups__destination">
+    <ul *ngIf="destinations">
+      <li style="color: grey">
+        Destination
+        <button class="submenu__ups__destination__close-button">
+          <svg
+            class="close-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+        </button>
+      </li>
+      <li class="cities" *ngFor="let destination of destinations">
+        {{ destination.desc }}
+      </li>
+    </ul>
+  </div>
+</div>
+
 <div class="selectContainer">
   <div class="selectContainer__ups">
     <button class="selectContainer__ups__origin">
@@ -26,18 +96,9 @@
   </div>
 </div>
 
-<div class="submenu__ups">
-  <div class="submenu__origin">
-    <ul *ngIf="destinations">
-      <li *ngFor="let destination of destinations">{{ destination.desc }}</li>
-    </ul>
-  </div>
-</div>
-
-<div class="submenu__date"></div>
-<div class="submenu__destination"></div>
-
 <div class="submenu__downs">
-  <div class="submenu__passengers"></div>
+  <div class="submenu__passengers">
+    <div class="submenu__passengers__title">Passengers</div>
+  </div>
   <div class="submenu__luggage"></div>
 </div>
