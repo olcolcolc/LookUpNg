@@ -37,7 +37,9 @@
   &__ups > *:hover,
   &__ups > *::after,
   &__downs > *:hover,
-  &__downs > *::after {
+  &__downs > *::after,
+  mat-datepicker-toggle:hover,
+  mat-datepicker-toggle::after{
     color: grey;
   }
 
@@ -127,4 +129,14 @@ li {
 
 .cities:hover{
   color: rgb(147, 129, 27);
+}
+
+mat-datepicker-toggle{
+  color: black;
+  width: 9px;
+}
+
+fa-icon{
+  font-size: 20px;
+  margin-left: 10px;
 }

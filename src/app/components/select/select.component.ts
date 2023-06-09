@@ -11,6 +11,7 @@ import { Destination } from 'src/app/interfaces/destination';
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
+  minDate: Date = new Date();
 
   // Icons
   originIcon = faHome;
