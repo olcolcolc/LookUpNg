@@ -12,6 +12,7 @@ export class DestinationService {
   constructor(private http: HttpClient) { }
 
   getDestinations(): Observable<Destination[]> {
+    console.log('Fetching destinations...');
     return this.http.get<Destination[]>(this.apiUrl);
   }
 }

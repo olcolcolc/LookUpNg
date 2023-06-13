@@ -1,4 +1,4 @@
-{ "destination" : [
+[
   {
       "id" : "1",
       "value" : "warsaw",
@@ -18,4 +18,4 @@
       "code" : "bln"
   }
 ]
-}
+

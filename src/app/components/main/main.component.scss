@@ -1,6 +1,7 @@
 .mainContainer{
   display: flex;
   justify-content: center;
+  z-index: -1;
 
 
   &__img{
@@ -16,15 +17,15 @@
   }
 
   &__textContainer{
-    max-width: 50%;
+    width: 600px;
+    height: 150px;
     background-color: white;
-    padding: 10px 0 10px 5%;
     position: absolute;
-    right: 5%;
+    right: 10%;
     top: 25%;
+    padding: 20px 40px 20px 10px;
     font-size: 3rem;
     text-align: left;
-    font-family: "Quicksand",sans-serif;
     font-weight: 300;
     color: #4392f1;
 
@@ -49,12 +50,16 @@
     }
 
     &__text{
-      margin-right: 150px;
+      width: 450px;
       word-wrap:break-word;
       display: inline-block;
+      margin: 0;
+      padding: 10px 0 10px 0;
+
     }
   }
 
 }
+
 
 
