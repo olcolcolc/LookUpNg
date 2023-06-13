@@ -14,6 +14,7 @@
   &__ups,
   &__downs {
     display: flex;
+    flex-wrap: wrap; /* Dodane */
   }
 
   &__ups > *,
@@ -32,6 +33,7 @@
     border: none;
     font-family: "Quicksand", sans-serif;
     font-size: 1rem;
+    // position: relative; /* Dodane */
   }
 
   &__ups > *:hover,
@@ -39,7 +41,7 @@
   &__downs > *:hover,
   &__downs > *::after,
   mat-datepicker-toggle:hover,
-  mat-datepicker-toggle::after{
+  mat-datepicker-toggle::after {
     color: grey;
   }
 
@@ -65,7 +67,8 @@ fa-icon {
   &__origin,
   &__date,
   &__destination {
-    position: relative;
+    position:  relative;
+    background-color: white;
     font-family: "Quicksand", sans-serif;
     background-color: #fff;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
@@ -73,47 +76,33 @@ fa-icon {
     padding: 10px 0;
     color: #88878b;
     margin-bottom: 5px;
-    z-index: 1;
+    z-index: 2;
     &__close-button {
       position: absolute;
       border: none;
       top: -12px;
       right: 12px;
     }
-    }
-
-
-  &__origin{
-    left: -200px;
-    top: 252px;
-    width: 180px;
-    // &__close-button {
-    //   top: -15px;
-    //   left: 60px;
-    // }
   }
 
-  &__date{
-    left: 0px;
+  &__origin {
+    left: -200px;
+    top: 282px;
+    width: 180px;
+  }
+
+  &__date {
+    left: 0;
     top: 100px;
     width: 180px;
     height: 100px;
-    // &__close-button{
-    //   top: 2px;
-    //   left: 150px;
-    // }
   }
 
-  &__destination{
+  &__destination {
     left: 200px;
-    top: 90px;
-    // &__close-button {
-    //   top: -13px;
-    //   left: 18px;
-    // }
+    top: 120px;
   }
 }
-
 
 ul {
   list-style-type: none;
@@ -127,16 +116,16 @@ li {
   transition: all 0.2s ease-in-out;
 }
 
-.cities:hover{
+.cities:hover {
   color: rgb(147, 129, 27);
 }
 
-mat-datepicker-toggle{
+mat-datepicker-toggle {
   color: black;
   width: 9px;
 }
 
-fa-icon{
+fa-icon {
   font-size: 20px;
   margin-left: 10px;
 }

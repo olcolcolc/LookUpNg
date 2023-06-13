@@ -3,8 +3,6 @@ import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase } from '@fortawe
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 
-
-
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -12,8 +10,6 @@ import { Destination } from 'src/app/interfaces/destination';
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
-
-  // Icons
   originIcon = faHome;
   dateIcon = faCalendarAlt;
   destinationIcon = faMapMarker;
@@ -23,6 +19,9 @@ export class SelectComponent implements OnInit {
   destinations: Destination[] = [];
   selectedDestination: string | null = null;
 
+  isOriginMenuOpen: boolean = false;
+  isDestinationMenuOpen: boolean = false;
+
   constructor(private destinationService: DestinationService) { }
 
   ngOnInit(): void {
@@ -31,9 +30,24 @@ export class SelectComponent implements OnInit {
     });
   }
 
-
-
   onListItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
+  }
+
+  toggleOriginMenu(): void {
+    this.isOriginMenuOpen = !this.isOriginMenuOpen;
+    console.log("origin menu open")
+  }
+
+  toggleDestinationMenu(): void {
+    this.isDestinationMenuOpen = !this.isDestinationMenuOpen;
+  }
+
+  closeOriginMenu(): void {
+    this.isOriginMenuOpen = false;
+  }
+
+  closeDestinationMenu(): void {
+    this.isDestinationMenuOpen = false;
   }
 }
