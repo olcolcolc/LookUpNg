@@ -4,7 +4,7 @@
     <div class="selectContainer__origin">
       <button class="selectContainer__originBtn" (click)="toggleOriginMenu()">
         <fa-icon [icon]="originIcon"></fa-icon>
-        Origin
+        {{ selectedOrigin ? selectedOrigin : 'Origin' }}
       </button>
 
       <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
@@ -106,7 +106,9 @@
       </button>
 
       <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen">
+
         <div class="selectContainer__passengers__submenu_inputs">
+
           <div class="selectContainer__passengers__submenu_div">
             <div class="selectContainer__passengers__submenu_div__left">
               <div
@@ -178,10 +180,17 @@
 
     <!-- LUGGAGE -->
     <div class="selectContainer__luggage">
-      <button class="selectContainer__luggageBtn">
+      <button class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
         <fa-icon [icon]="luggageIcon"></fa-icon>
         Luggage
       </button>
+      <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen">
+        <ul>
+          <li>Carry-on</li>
+          <li>Carry-on & trolley</li>
+        </ul>
+      </div>
+
     </div>
 
     <!-- SELECT -->

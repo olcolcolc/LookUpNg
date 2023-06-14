@@ -30,10 +30,15 @@ export class SelectComponent implements OnInit {
   destinations: Destination[] = [];
   selectedDestination: string | null = null;
 
+  //Origin input
+  selectedOrigin: string | null = null;
+
   //Submenus config
   isOriginMenuOpen: boolean = false;
   isDestinationMenuOpen: boolean = false;
   isPassengerMenuOpen: boolean = false;
+  isLuggageMenuOpen: boolean = false;
+
 
   constructor(private destinationService: DestinationService) { }
 
@@ -43,10 +48,20 @@ export class SelectComponent implements OnInit {
     });
   }
 
+  onOriginItemClick(destination: Destination): void {
+    this.selectedOrigin = destination.desc;
+    this.isOriginMenuOpen = false;
+  }
+
+  onDestinationItemClick(destination: Destination): void {
+    this.selectedDestination = destination.desc;
+  }
+
   onListItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
   }
 
+  //Submenus handlers
   toggleOriginMenu(): void {
     this.isOriginMenuOpen = !this.isOriginMenuOpen;
   }
@@ -59,6 +74,12 @@ export class SelectComponent implements OnInit {
     this.isPassengerMenuOpen = !this.isPassengerMenuOpen;
   }
 
+  toggleLuggageMenu(): void {
+    this.isLuggageMenuOpen = !this.isLuggageMenuOpen;
+  }
+
+
+  //Close submenus handlers
   closeOriginMenu(): void {
     this.isOriginMenuOpen = false;
   }

@@ -48,11 +48,15 @@
   &__destinationBtn:hover,
   &__passengersBtn:hover,
   &__luggageBtn:hover,
-  &__submit:hover,
   mat-datepicker-toggle:hover,
   mat-datepicker-toggle::after {
     color: grey;
   }
+
+  &__submit:hover{
+    color: yellow;
+  }
+
 
   &__submit,
   &__passengers__submenu__acceptBtn
@@ -71,7 +75,8 @@
   &__origin__submenu,
   &__date__submenu,
   &__destination__submenu,
-  &__passengers__submenu {
+  &__passengers__submenu,
+  &__luggage__submenu {
     position: absolute;
     background-color: white;
     transform: translateY(0);
@@ -84,6 +89,7 @@
     color: #88878b;
     margin-bottom: 5px;
     z-index: 2;
+
   }
 
   &__origin__submenu__close-button,
@@ -92,7 +98,7 @@
     border: none;
     cursor: pointer;
     top: -12px;
-    right: 12px;
+    right: -12px;
   }
 
   // SUBMENUS POSITION
@@ -114,7 +120,7 @@
     align-items: center;
     padding: 1rem;
     width: 250px;
-    left: 3rem;
+    left: -1rem;
     top: 12rem;
 
     &__note{
@@ -142,20 +148,25 @@
 
   }
 
+  &__luggage__submenu{
+    right: 17rem;
+  }
+  & ul{
+    padding: 0 1.5rem;
+    margin: 14px 0;
+
+  & li:hover{
+    color: #88878b;
+    cursor: pointer;
+  }
+}
+
 }
 
 
 fa-icon {
   margin-right: 10px;
 }
-
-// .submenu__ups__destination {
-//   position: relative;
-//   top: 375px;
-//   right: 560px;
-//   width: 180px;
-//   z-index: 200;
-// }
 
 ul {
   list-style-type: none;
@@ -170,7 +181,7 @@ li {
 }
 
 .cities:hover {
-  color: rgb(147, 129, 27);
+  color: #88878b;
 }
 
 mat-datepicker-toggle {
