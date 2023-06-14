@@ -1,94 +1,206 @@
-<div class="submenu__ups">
-  <div class="submenu__ups__origin">
-    <ul *ngIf="destinations">
-      <li style="color: grey">
-        Origin
-        <button class="submenu__ups__origin__close-button">
-          <svg
-            class="close-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-x"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
-        </button>
-      </li>
-      <li class="cities" *ngFor="let destination of destinations">
-        {{ destination.desc }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="submenu__ups__destination">
-    <ul *ngIf="destinations">
-      <li style="color: grey">
-        Destination
-        <button class="submenu__ups__destination__close-button">
-          <svg
-            class="close-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-x"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
-        </button>
-      </li>
-      <li class="cities" *ngFor="let destination of destinations">
-        {{ destination.desc }}
-      </li>
-    </ul>
-  </div>
-</div>
-
 <div class="selectContainer">
   <div class="selectContainer__ups">
-    <button class="selectContainer__ups__origin">
-      <fa-icon [icon]="originIcon"></fa-icon>
-      Origin
-    </button>
-    <div class="selectContainer__ups__date">
-      <mat-form-field class="example-full-width">
-        <mat-label></mat-label>
-        <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Date">
-        <mat-datepicker-toggle matIconSuffix class="dateIcon" [for]="picker">
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date
+    <!-- ORIGIN -->
+    <div class="selectContainer__origin">
+      <button class="selectContainer__originBtn" (click)="toggleOriginMenu()">
+        <fa-icon [icon]="originIcon"></fa-icon>
+        {{ selectedOrigin ? selectedOrigin : 'Origin' }}
+      </button>
+
+      <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
+        <ul *ngIf="destinations">
+          <li style="color: grey">
+            Origin
+            <button
+              class="selectContainer__origin__submenu__close-button"
+              (click)="closeOriginMenu()"
+            >
+              <svg
+                class="close-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </button>
+          </li>
+          <li class="cities" *ngFor="let destination of destinations">
+            {{ destination.desc }}
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <button class="selectContainer__ups__destination">
-      <fa-icon [icon]="destinationIcon"></fa-icon>
-      Destination
-    </button>
-  </div>
-  <div class="selectContainer__downs">
-    <button class="selectContainer__downs__passengers">
-      <fa-icon [icon]="passengersIcon"></fa-icon>
-      Passengers
-    </button>
-    <button class="selectContainer__downs__luggage">
-      <fa-icon [icon]="luggageIcon"></fa-icon>
-      Luggage
-    </button>
-    <button class="selectContainer__selectSubmit">Submit</button>
-  </div>
-</div>
+    <!-- DATE BUTTON AND SUBMENU -->
+    <div class="selectContainer__dateBtn">
+      <mat-form-field class="example-full-width">
+        <mat-label></mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [min]="minDate"
+          placeholder="Date"
+        />
+        <mat-datepicker-toggle matIconSuffix class="dateIcon" [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker> </mat-form-field
+      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date
+    </div>
 
-<div class="submenu__downs">
+    <!-- DESTINATION -->
+    <div class="selectContainer__destination">
+      <button
+        class="selectContainer__destinationBtn"
+        (click)="toggleDestinationMenu()"
+      >
+        <fa-icon [icon]="destinationIcon"></fa-icon>
+        Destination
+      </button>
+
+      <div
+        class="selectContainer__destination__submenu"
+        *ngIf="isDestinationMenuOpen"
+      >
+        <ul *ngIf="destinations">
+          <li style="color: grey">
+            Destination
+            <button
+              class="selectContainer__destination__submenu__close-button"
+              (click)="closeDestinationMenu()"
+            >
+              <svg
+                class="close-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </button>
+          </li>
+          <li class="cities" *ngFor="let destination of destinations">
+            {{ destination.desc }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="selectContainer__downs">
+    <!-- PASSENGERS -->
+    <div class="selectContainer__passengers">
+      <button class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
+        <fa-icon [icon]="passengersIcon"></fa-icon>
+        Passengers
+      </button>
+
+      <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen">
+
+        <div class="selectContainer__passengers__submenu_inputs">
+
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Adult
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                >16 years old
+              </div>
+            </div>
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__adults" [(ngModel)]="selectedOption_adult">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Children
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                1-16 years old
+              </div>
+            </div>
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__children" [(ngModel)]="selectedOption_children">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Babies
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                less then 1 year old
+              </div>
+            </div>
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__babies" [(ngModel)]="selectedOption_babies">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
+        <button class="selectContainer__passengers__submenu__acceptBtn">
+          Accept
+        </button>
+        <div class="selectContainer__passengers__submenu__note">
+          <fa-icon [icon]="infoIcon"></fa-icon>
+          <p>Note</p>
+        </div>
+        <div class="selectContainer__passengers__submenu__count">
+          <p>You can choose 8 more passengers</p>
+          <p>Babies travel free of charge</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUGGAGE -->
+    <div class="selectContainer__luggage">
+      <button class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
+        <fa-icon [icon]="luggageIcon"></fa-icon>
+        Luggage
+      </button>
+      <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen">
+        <ul>
+          <li>Carry-on</li>
+          <li>Carry-on & trolley</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- SELECT -->
+    <button class="selectContainer__submit">Submit</button>
+  </div>
+
+  <!-- <div class="submenu__downs">
   <div class="submenu__passengers">
     <div class="submenu__passengers__title">Passengers</div>
   </div>
   <div class="submenu__luggage"></div>
+</div> -->
 </div>
