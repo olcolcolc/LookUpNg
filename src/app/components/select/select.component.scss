@@ -73,8 +73,9 @@
 
   &__origin__submenu,
   &__date__submenu,
-  &__destination__submenu {
-    position:  absolute;
+  &__destination__submenu,
+  &__passengers__submenu {
+    position: absolute;
     background-color: white;
     transform: translateY(0);
     z-index: 100;
@@ -90,48 +91,54 @@
 
   &__origin__submenu__close-button,
   &__destination__submenu__close-button {
-      position: absolute;
-      border: none;
-      cursor: pointer;
-      top: -12px;
-      right: 12px;
-    }
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    top: -12px;
+    right: 12px;
+  }
 
-    // SUBMENUS POSITION
-    &__origin__submenu {
-      left: 4rem;
-      top: -7rem;
-      width: 180px;
-    }
+  // SUBMENUS POSITION
+  &__origin__submenu {
+    left: 4rem;
+    top: -7rem;
+    width: 180px;
+  }
 
-    &__destination__submenu {
-      left: 29rem;
-      top: -7rem;
-      width: 180px;
-    }
+  &__destination__submenu {
+    left: 29rem;
+    top: -7rem;
+    width: 180px;
+  }
 
+  &__passengers__submenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    left: 29rem;
+    top: -7rem;
+  }
+
+  &__passengers__submenu_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em;
+  }
 }
 
 fa-icon {
   margin-right: 10px;
 }
 
-
-
-
-
-
-
-
-
-  // .submenu__ups__destination {
-  //   position: relative;
-  //   top: 375px;
-  //   right: 560px;
-  //   width: 180px;
-  //   z-index: 200;
-  // }
-
+// .submenu__ups__destination {
+//   position: relative;
+//   top: 375px;
+//   right: 560px;
+//   width: 180px;
+//   z-index: 200;
+// }
 
 ul {
   list-style-type: none;

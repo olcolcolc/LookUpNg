@@ -104,25 +104,76 @@
         <fa-icon [icon]="passengersIcon"></fa-icon>
         Passengers
       </button>
+
+      <div class="selectContainer__passengers__submenu">
+
+        <div class="selectContainer__passengers__submenu_div">
+
+          <div class="selectContainer__passengers__submenu_div__left">
+            <div class="selectContainer__passengers__submenu_div__left__title">
+              Adult
+            </div>
+            <div class="selectContainer__passengers__submenu_div__left__desc">
+              >16 years old
+            </div>
+          </div>
+
+          <select class="selectContainer__passengers__submenu_div__adults"></select>
+
+        </div>
+
+
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Children
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                1-16 years old
+              </div>
+            </div>
+            <select
+              class="selectContainer__passengers__submenu_div__children"
+            ></select>
+          </div>
+
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Babies
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                less then 1 year old
+              </div>
+            </div>
+            <select
+              class="selectContainer__passengers__submenu_div__babies"
+            ></select>
+          </div>
+      </div>
     </div>
 
-    <!-- LUGGAGE -->
-    <div class="selectContainer__luggage">
-      <button class="selectContainer__luggageBtn">
-        <fa-icon [icon]="luggageIcon"></fa-icon>
-        Luggage
-      </button>
-    </div>
+      <!-- LUGGAGE -->
+      <div class="selectContainer__luggage">
+        <button class="selectContainer__luggageBtn">
+          <fa-icon [icon]="luggageIcon"></fa-icon>
+          Luggage
+        </button>
+      </div>
 
-    <!-- SELECT -->
-    <button class="selectContainer__submit">Submit</button>
+      <!-- SELECT -->
+      <button class="selectContainer__submit">Submit</button>
+
   </div>
-</div>
 
-
-<!-- <div class="submenu__downs">
+  <!-- <div class="submenu__downs">
   <div class="submenu__passengers">
     <div class="submenu__passengers__title">Passengers</div>
   </div>
   <div class="submenu__luggage"></div>
 </div> -->
+
