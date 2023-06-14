@@ -8,7 +8,7 @@
       </button>
 
       <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
-        <ul *ngIf="destinations">
+        <ul *ngIf="destinations" >
           <li style="color: grey">
             Origin
             <button
@@ -46,11 +46,12 @@
           [matDatepicker]="picker"
           [min]="minDate"
           placeholder="Date"
+          [(ngModel)]="selectedDate"
         />
         <mat-datepicker-toggle matIconSuffix class="dateIcon" [for]="picker">
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker> </mat-form-field
-      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date
+      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedDate ? selectedDate.toLocaleDateString() : 'Date' }}
     </div>
 
     <!-- DESTINATION -->

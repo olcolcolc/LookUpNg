@@ -33,6 +33,9 @@ export class SelectComponent implements OnInit {
   //Origin input
   selectedOrigin: string | null = null;
 
+  //Date input
+  selectedDate: Date | null = null;
+
   //Submenus config
   isOriginMenuOpen: boolean = false;
   isDestinationMenuOpen: boolean = false;
