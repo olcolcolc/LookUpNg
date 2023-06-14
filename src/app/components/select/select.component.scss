@@ -23,7 +23,7 @@
     flex-wrap: wrap;
   }
 
-  // buttony
+  // buttons
   &__originBtn,
   &__dateBtn,
   &__destinationBtn,
@@ -47,7 +47,6 @@
     // position: relative; /* Dodane */
   }
 
-  // buttony
   &__originBtn:hover,
   &__dateBtn:hover,
   &__destinationBtn:hover,
@@ -71,16 +70,11 @@
     font-size: 1rem;
     font-family: "Quicksand", sans-serif;
   }
-}
 
-fa-icon {
-  margin-right: 10px;
-}
-
-  .selectContainer__origin__submenu,
-  .selectContainer__date__submenu,
-  .selectContainer__destination__submenu {
-    position:  relative;
+  &__origin__submenu,
+  &__date__submenu,
+  &__destination__submenu {
+    position:  absolute;
     background-color: white;
     transform: translateY(0);
     z-index: 100;
@@ -94,26 +88,41 @@ fa-icon {
     z-index: 2;
   }
 
-  .selectContainer__origin__submenu__close-button,
-  .selectContainer__destination__submenu__close-button {
+  &__origin__submenu__close-button,
+  &__destination__submenu__close-button {
       position: absolute;
       border: none;
+      cursor: pointer;
       top: -12px;
       right: 12px;
     }
 
-  // .submenu__ups__origin {
-  //   left: -200px;
-  //   top: 285px;
-  //   width: 180px;
-  // }
+    // SUBMENUS POSITION
+    &__origin__submenu {
+      left: 4rem;
+      top: -7rem;
+      width: 180px;
+    }
 
-  // .submenu__ups__date {
-  //   left: 0;
-  //   top: 70px;
-  //   width: 180px;
-  //   height: 100px;
-  // }
+    &__destination__submenu {
+      left: 29rem;
+      top: -7rem;
+      width: 180px;
+    }
+
+}
+
+fa-icon {
+  margin-right: 10px;
+}
+
+
+
+
+
+
+
+
 
   // .submenu__ups__destination {
   //   position: relative;
