@@ -100,28 +100,30 @@
   <div class="selectContainer__downs">
     <!-- PASSENGERS -->
     <div class="selectContainer__passengers">
-      <button class="selectContainer__passengersBtn">
+      <button class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
         <fa-icon [icon]="passengersIcon"></fa-icon>
         Passengers
       </button>
 
-      <div class="selectContainer__passengers__submenu">
-
-        <div class="selectContainer__passengers__submenu_div">
-
-          <div class="selectContainer__passengers__submenu_div__left">
-            <div class="selectContainer__passengers__submenu_div__left__title">
-              Adult
+      <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen">
+        <div class="selectContainer__passengers__submenu_inputs">
+          <div class="selectContainer__passengers__submenu_div">
+            <div class="selectContainer__passengers__submenu_div__left">
+              <div
+                class="selectContainer__passengers__submenu_div__left__title"
+              >
+                Adult
+              </div>
+              <div class="selectContainer__passengers__submenu_div__left__desc">
+                >16 years old
+              </div>
             </div>
-            <div class="selectContainer__passengers__submenu_div__left__desc">
-              >16 years old
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__adults" [(ngModel)]="selectedOption_adult">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
             </div>
           </div>
-
-          <select class="selectContainer__passengers__submenu_div__adults"></select>
-
-        </div>
-
 
           <div class="selectContainer__passengers__submenu_div">
             <div class="selectContainer__passengers__submenu_div__left">
@@ -134,9 +136,11 @@
                 1-16 years old
               </div>
             </div>
-            <select
-              class="selectContainer__passengers__submenu_div__children"
-            ></select>
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__children" [(ngModel)]="selectedOption_children">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
           </div>
 
           <div class="selectContainer__passengers__submenu_div">
@@ -150,24 +154,38 @@
                 less then 1 year old
               </div>
             </div>
-            <select
-              class="selectContainer__passengers__submenu_div__babies"
-            ></select>
+            <div class="selectContainer__passengers__submenu_div__right">
+              <select class="selectContainer__passengers__submenu_div__babies" [(ngModel)]="selectedOption_babies">
+                <option *ngFor="let option of passengerOptions" [value]="option">{{ option }}</option>
+              </select>
+
+            </div>
           </div>
+        </div>
+        <button class="selectContainer__passengers__submenu__acceptBtn">
+          Accept
+        </button>
+        <div class="selectContainer__passengers__submenu__note">
+          <fa-icon [icon]="infoIcon"></fa-icon>
+          <p>Note</p>
+        </div>
+        <div class="selectContainer__passengers__submenu__count">
+          <p>You can choose 8 more passengers</p>
+          <p>Babies travel free of charge</p>
+        </div>
       </div>
     </div>
 
-      <!-- LUGGAGE -->
-      <div class="selectContainer__luggage">
-        <button class="selectContainer__luggageBtn">
-          <fa-icon [icon]="luggageIcon"></fa-icon>
-          Luggage
-        </button>
-      </div>
+    <!-- LUGGAGE -->
+    <div class="selectContainer__luggage">
+      <button class="selectContainer__luggageBtn">
+        <fa-icon [icon]="luggageIcon"></fa-icon>
+        Luggage
+      </button>
+    </div>
 
-      <!-- SELECT -->
-      <button class="selectContainer__submit">Submit</button>
-
+    <!-- SELECT -->
+    <button class="selectContainer__submit">Submit</button>
   </div>
 
   <!-- <div class="submenu__downs">
@@ -176,4 +194,4 @@
   </div>
   <div class="submenu__luggage"></div>
 </div> -->
-
+</div>

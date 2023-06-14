@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './components/main/main.component';
 import { SelectComponent } from './components/select/select.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -31,6 +31,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,

@@ -17,11 +17,6 @@
     display: flex;
     flex-wrap: wrap; /* Dodane */
   }
-  .selectContainer__ups {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
 
   // buttons
   &__originBtn,
@@ -29,6 +24,7 @@
   &__destinationBtn,
   &__passengersBtn,
   &__luggageBtn,
+  &__passengers__submenu__acceptBtn,
   &__submit {
     flex: 1;
     border-radius: 10px 20px 10px 20px;
@@ -58,11 +54,12 @@
     color: grey;
   }
 
-  &__submit {
+  &__submit,
+  &__passengers__submenu__acceptBtn
+  {
     cursor: pointer;
     background-color: #4392f1;
     color: #fff;
-    // width: 100%;
     height: 50px;
     justify-content: center;
     border-radius: 10px 20px 10px 20px;
@@ -115,18 +112,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    left: 29rem;
-    top: -7rem;
+    padding: 1rem;
+    width: 250px;
+    left: 3rem;
+    top: 12rem;
+
+    &__note{
+      display: flex;
+      text-align: center;
+    }
+    &_div{
+      display: flex;
+      padding: 0.5em;
+      justify-content: space-between;
+      &__left__title{
+        font-weight: bold;
+        color: black;
+      }
+      &__right select{
+        cursor: pointer
+      }
+    }
+    &__acceptBtn{
+      padding: 15px 0;
+    }
+    &__count{
+      margin-left: 15px;
+    }
+
   }
 
-  &__passengers__submenu_div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5em;
-  }
 }
+
 
 fa-icon {
   margin-right: 10px;
