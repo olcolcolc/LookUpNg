@@ -1,5 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
+import {
+  faHome,
+  faCalendarAlt,
+  faMapMarker,
+  faUser,
+  faSuitcase,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-summary',
@@ -12,6 +21,14 @@ export class SummaryComponent implements OnInit {
   selectedDate: Date | null = null;
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
+
+    //Icons
+    originIcon = faHome;
+    dateIcon = faCalendarAlt;
+    destinationIcon = faMapMarker;
+    passengersIcon = faUser;
+    luggageIcon = faSuitcase;
+    infoIcon = faInfoCircle;
 
   constructor(private summaryService: SummaryService) {}
 

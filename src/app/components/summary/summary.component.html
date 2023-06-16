@@ -1,9 +1,27 @@
 <div class="summary">
+  <h1>Your ticket</h1>
   <div class="summary__ticket">
-    <p>{{selectedOrigin}}</p>
-    <p>{{selectedDestination}}</p>
-    <p>{{selectedLuggageOption}}</p>
-    <p>{{selectedPassengerCount}}</p>
-    <p>{{formatSelectedDate()}}</p>
+    <div class="summary__ticket__left">
+      <p>From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></p>
+      <p>
+        To: {{ selectedDestination }}
+        <fa-icon [icon]="destinationIcon"></fa-icon>
+      </p>
+      <p>
+        Passengers: {{ selectedPassengerCount }}
+        <fa-icon [icon]="passengersIcon"></fa-icon>
+      </p>
+    </div>
+    <div class="summary__ticket__right">
+      <p>
+        Luggage: {{ selectedLuggageOption }}
+        <fa-icon [icon]="luggageIcon"></fa-icon>
+      </p>
+
+      <p>
+        Date: {{ formatSelectedDate() }} <fa-icon [icon]="dateIcon"></fa-icon>
+      </p>
+      <p>Weather in {{ selectedDestination }}</p>
+    </div>
   </div>
 </div>
