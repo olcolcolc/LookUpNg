@@ -61,7 +61,7 @@
     <div class="selectContainer__passengers">
       <button class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
         <fa-icon [icon]="passengersIcon"></fa-icon>
-        Passengers
+        {{ passengerCount ? passengerCount : "Passengers" }}
       </button>
 
       <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen">
@@ -123,7 +123,7 @@
             </div>
           </div>
         </div>
-        <button class="selectContainer__passengers__submenu__acceptBtn">
+        <button class="selectContainer__passengers__submenu__acceptBtn" (click)="onAcceptPassengerSelection()">
           Accept
         </button>
         <div class="selectContainer__passengers__submenu__note">
@@ -156,10 +156,4 @@
     <button class="selectContainer__submit">Submit</button>
   </div>
 
-  <!-- <div class="submenu__downs">
-  <div class="submenu__passengers">
-    <div class="submenu__passengers__title">Passengers</div>
-  </div>
-  <div class="submenu__luggage"></div>
-</div> -->
 </div>
