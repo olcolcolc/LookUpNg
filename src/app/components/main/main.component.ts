@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
+  showSummary: boolean = false;
+
+  onSubmit() {
+    this.showSummary = true;
+  }
+
   constructor() { }
 
   ngOnInit(): void {
