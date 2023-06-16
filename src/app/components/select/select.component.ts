@@ -81,13 +81,4 @@ export class SelectComponent implements OnInit {
     this.isLuggageMenuOpen = !this.isLuggageMenuOpen;
   }
 
-
-  //Close submenus handlers
-  closeOriginMenu(): void {
-    this.isOriginMenuOpen = false;
-  }
-
-  closeDestinationMenu(): void {
-    this.isDestinationMenuOpen = false;
-  }
 }
