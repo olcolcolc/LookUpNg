@@ -10,6 +10,7 @@ export class SummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("summary")
   }
 
 }

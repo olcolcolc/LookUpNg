@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  showSelect: boolean = true;
+  showSummary: boolean = false;
 
   onSubmit() {
-    this.showSelect = false;
+    this.showSummary = true;
   }
 
   constructor() { }
