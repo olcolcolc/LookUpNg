@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  showSummary: boolean = false;
+  showSummary: boolean = true;
 
   onSubmit() {
-    this.showSummary = true;
+    this.showSummary = false;
   }
 
   constructor() { }

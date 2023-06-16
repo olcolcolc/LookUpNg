@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
-import { FormsModule } from '@angular/forms';
 import { SummaryService } from 'src/app/services/summary.service';
 
 @Component({

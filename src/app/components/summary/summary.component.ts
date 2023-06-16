@@ -1,5 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/services/weather.service';
 import { SummaryService } from 'src/app/services/summary.service';
+import {
+  faHome,
+  faCalendarAlt,
+  faMapMarker,
+  faUser,
+  faSuitcase,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-summary',
@@ -13,7 +23,16 @@ export class SummaryComponent implements OnInit {
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
 
-  constructor(private summaryService: SummaryService) {}
+    //Icons
+    originIcon = faHome;
+    dateIcon = faCalendarAlt;
+    destinationIcon = faMapMarker;
+    passengersIcon = faUser;
+    luggageIcon = faSuitcase;
+    infoIcon = faInfoCircle;
+    weatherData: string | undefined;
+
+  constructor(private summaryService: SummaryService, private weatherService: WeatherService) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
@@ -36,4 +55,14 @@ export class SummaryComponent implements OnInit {
 
     return 'Date';
   }
+
+  getWeatherData(): void {
+    if (this.selectedDestination) {
+      this.weatherService.getWeather(this.selectedDestination).subscribe((data: string) => {
+        this.weatherData = data;
+        // Możesz tutaj przetworzyć dane pogodowe i wyświetlić je w komponencie
+      });
+    }
+  }
+
 }
