@@ -38,9 +38,11 @@ export class SelectComponent implements OnInit {
   //Destination input
   destinations: Destination[] = [];
   selectedDestination: string | null = null;
+  availableDestinations: Destination[] = [];
 
   //Origin input
   selectedOrigin: string | null = null;
+  availableOrigins: Destination[] = [];
 
   //Date input
   selectedDate: Date | null = null;
@@ -58,8 +60,10 @@ export class SelectComponent implements OnInit {
   constructor(private destinationService: DestinationService) {}
 
   ngOnInit(): void {
-    this.destinationService.getDestinations().subscribe((destinations) => {
+    this.destinationService.getDestinations().subscribe(destinations => {
       this.destinations = destinations;
+      this.availableOrigins = [...this.destinations];
+      this.availableDestinations = [...this.destinations];
     });
   }
 
@@ -67,11 +71,21 @@ export class SelectComponent implements OnInit {
   onOriginItemClick(destination: Destination): void {
     this.selectedOrigin = destination.desc;
     this.isOriginMenuOpen = false;
+
+    this.availableDestinations = this.destinations.filter(dest => dest.desc !== destination.desc);
+    if (this.selectedDestination && this.selectedDestination === destination.desc) {
+      this.selectedDestination = null;
+    }
   }
 
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
     this.isDestinationMenuOpen = false;
+
+    this.availableOrigins = this.destinations.filter(dest => dest.desc !== destination.desc);
+    if (this.selectedOrigin && this.selectedOrigin === destination.desc) {
+      this.selectedOrigin = null;
+    }
   }
 
   onLuggageItemClick(item: string): void {

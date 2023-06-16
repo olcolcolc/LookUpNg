@@ -9,7 +9,7 @@
 
       <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
         <ul *ngIf="destinations" >
-          <li class="option" *ngFor="let destination of destinations" (click)="onOriginItemClick(destination)">
+          <li class="option" *ngFor="let destination of availableOrigins" (click)="onOriginItemClick(destination)">
             {{ destination.desc }}
           </li>
         </ul>
@@ -48,7 +48,7 @@
         *ngIf="isDestinationMenuOpen"
       >
         <ul *ngIf="destinations">
-          <li class="option" *ngFor="let destination of destinations" (click)="onDestinationItemClick(destination)">
+          <li class="option" *ngFor="let destination of availableDestinations" (click)="onDestinationItemClick(destination)">
             {{ destination.desc }}
           </li>
         </ul>
