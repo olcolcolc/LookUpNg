@@ -36,6 +36,10 @@ export class SelectComponent implements OnInit {
   //Date input
   selectedDate: Date | null = null;
 
+  //Luggage input
+  luggageOptions: string[] = ["Carry-on", "Carry-on & trolley"]
+  selectedLuggageOption: string | null | undefined
+
   //Submenus config
   isOriginMenuOpen: boolean = false;
   isDestinationMenuOpen: boolean = false;
@@ -58,11 +62,14 @@ export class SelectComponent implements OnInit {
 
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
+    this.isDestinationMenuOpen = false;
   }
 
-  onListItemClick(destination: Destination): void {
-    this.selectedDestination = destination.desc;
+  onLuggageItemClick(item: string): void {
+    this.selectedLuggageOption = item;
+    this.isLuggageMenuOpen = false;
   }
+
 
   //Submenus handlers
   toggleOriginMenu(): void {
@@ -80,5 +87,6 @@ export class SelectComponent implements OnInit {
   toggleLuggageMenu(): void {
     this.isLuggageMenuOpen = !this.isLuggageMenuOpen;
   }
+
 
 }

@@ -146,10 +146,6 @@
     padding: 0 1.5rem;
     margin: 14px 0;
 
-  & li:hover{
-    color: #88878b;
-    cursor: pointer;
-  }
 }
 
 }
@@ -171,8 +167,9 @@ li {
   transition: all 0.2s ease-in-out;
 }
 
-.cities:hover {
+.option:hover {
   color: #88878b;
+  cursor: pointer;
 }
 
 mat-datepicker-toggle {

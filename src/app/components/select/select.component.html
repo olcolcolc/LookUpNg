@@ -9,7 +9,7 @@
 
       <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
         <ul *ngIf="destinations" >
-          <li class="cities" *ngFor="let destination of destinations">
+          <li class="option" *ngFor="let destination of destinations" (click)="onOriginItemClick(destination)">
             {{ destination.desc }}
           </li>
         </ul>
@@ -40,7 +40,7 @@
         (click)="toggleDestinationMenu()"
       >
         <fa-icon [icon]="destinationIcon"></fa-icon>
-        Destination
+        {{ selectedDestination ? selectedDestination : 'Destination' }}
       </button>
 
       <div
@@ -48,7 +48,7 @@
         *ngIf="isDestinationMenuOpen"
       >
         <ul *ngIf="destinations">
-          <li class="cities" *ngFor="let destination of destinations">
+          <li class="option" *ngFor="let destination of destinations" (click)="onDestinationItemClick(destination)">
             {{ destination.desc }}
           </li>
         </ul>
@@ -141,12 +141,12 @@
     <div class="selectContainer__luggage">
       <button class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
         <fa-icon [icon]="luggageIcon"></fa-icon>
-        Luggage
+        {{selectedLuggageOption ? selectedLuggageOption : "Luggage"}}
       </button>
       <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen">
         <ul>
-          <li>Carry-on</li>
-          <li>Carry-on & trolley</li>
+          <li class="option" *ngFor="let luggageOption of luggageOptions" (click)="onLuggageItemClick(luggageOption)">
+            {{luggageOption}}</li>
         </ul>
       </div>
 
