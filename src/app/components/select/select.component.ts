@@ -10,6 +10,7 @@ import {
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { FormsModule } from '@angular/forms';
+import { SummaryService } from 'src/app/services/summary.service';
 
 @Component({
   selector: 'app-select',
@@ -18,9 +19,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
-
-  //Component booleans
-  // showSummaryComponent: boolean = false;
 
   //Icons
   originIcon = faHome;
@@ -50,6 +48,7 @@ export class SelectComponent implements OnInit {
   //Date input
   selectedDate: Date | null = null;
 
+
   //Luggage input
   luggageOptions: string[] = ['Carry-on', 'Carry-on & trolley'];
   selectedLuggageOption: string | null = null;
@@ -60,7 +59,9 @@ export class SelectComponent implements OnInit {
   isPassengerMenuOpen: boolean = false;
   isLuggageMenuOpen: boolean = false;
 
-  constructor(private destinationService: DestinationService) {}
+
+  constructor(private destinationService: DestinationService,
+    private summaryService: SummaryService) {}
 
   ngOnInit(): void {
     this.destinationService.getDestinations().subscribe((destinations) => {
@@ -75,6 +76,7 @@ export class SelectComponent implements OnInit {
     this.selectedOrigin = destination.desc;
     this.isOriginMenuOpen = false;
 
+    //do not show selected destionation in origin available options
     this.availableDestinations = this.destinations.filter(
       (dest) => dest.desc !== destination.desc
     );
@@ -84,23 +86,33 @@ export class SelectComponent implements OnInit {
     ) {
       this.selectedDestination = null;
     }
-  }
+
+    //send selectedOrigin to summaryService
+    this.summaryService.selectedOrigin = destination.desc;
+    }
 
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
     this.isDestinationMenuOpen = false;
 
+    //do not show selected origin in destination available options
     this.availableOrigins = this.destinations.filter(
       (dest) => dest.desc !== destination.desc
     );
     if (this.selectedOrigin && this.selectedOrigin === destination.desc) {
       this.selectedOrigin = null;
     }
+
+    //send selectedDestination to summaryService
+    this.summaryService.selectedDestination = destination.desc;
   }
 
   onLuggageItemClick(item: string): void {
     this.selectedLuggageOption = item;
     this.isLuggageMenuOpen = false;
+
+    //send selectedLuggageOption to summaryService
+    this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
   }
 
   onAcceptPassengerSelection(): void {
@@ -116,6 +128,9 @@ export class SelectComponent implements OnInit {
 
     this.passengerCount = adultCount + childrenCount + babiesCount;
     this.isPassengerMenuOpen = false;
+
+    //send passengerCount to summaryService
+    this.summaryService.selectedPassengerCount = this.passengerCount;
   }
 
   getSelectedPassengerCount(): number {
@@ -144,5 +159,8 @@ export class SelectComponent implements OnInit {
 
   onSubmit() {
     this.submit.emit();
+
+    //send selectedDate to summaryService
+    this.summaryService.selectedDate = this.selectedDate;
   }
 }

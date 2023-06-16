@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SummaryComponent } from './components/summary/summary.component';
+import { SummaryService } from './services/summary.service';
 
 
 
@@ -42,7 +43,7 @@ import { SummaryComponent } from './components/summary/summary.component';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [DestinationService],
+  providers: [DestinationService, SummaryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
