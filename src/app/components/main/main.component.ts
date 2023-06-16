@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
+  showSelect: boolean = true;
+
+  onSubmit() {
+    this.showSelect = false;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

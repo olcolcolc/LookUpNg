@@ -3,6 +3,8 @@
   <div class="mainContainer__textContainer">
     <p class="mainContainer__textContainer__text">Conveniently plan <br><br><br>your flights</p>
   </div>
-  <div>  <app-select></app-select>
+  <div>
+    <app-select *ngIf="showSelect" (submit)="onSubmit()"></app-select>
+    <app-summary *ngIf="!showSelect"></app-summary>
   </div>
 </div>

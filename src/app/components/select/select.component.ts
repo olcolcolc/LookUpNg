@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   faHome,
   faCalendarAlt,
@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
+
+  //Component booleans
+  // showSummaryComponent: boolean = false;
 
   //Icons
   originIcon = faHome;
@@ -51,7 +54,7 @@ export class SelectComponent implements OnInit {
   luggageOptions: string[] = ['Carry-on', 'Carry-on & trolley'];
   selectedLuggageOption: string | null = null;
 
-  //Submenus config
+  //Submenus booleans
   isOriginMenuOpen: boolean = false;
   isDestinationMenuOpen: boolean = false;
   isPassengerMenuOpen: boolean = false;
@@ -60,7 +63,7 @@ export class SelectComponent implements OnInit {
   constructor(private destinationService: DestinationService) {}
 
   ngOnInit(): void {
-    this.destinationService.getDestinations().subscribe(destinations => {
+    this.destinationService.getDestinations().subscribe((destinations) => {
       this.destinations = destinations;
       this.availableOrigins = [...this.destinations];
       this.availableDestinations = [...this.destinations];
@@ -72,8 +75,13 @@ export class SelectComponent implements OnInit {
     this.selectedOrigin = destination.desc;
     this.isOriginMenuOpen = false;
 
-    this.availableDestinations = this.destinations.filter(dest => dest.desc !== destination.desc);
-    if (this.selectedDestination && this.selectedDestination === destination.desc) {
+    this.availableDestinations = this.destinations.filter(
+      (dest) => dest.desc !== destination.desc
+    );
+    if (
+      this.selectedDestination &&
+      this.selectedDestination === destination.desc
+    ) {
       this.selectedDestination = null;
     }
   }
@@ -82,7 +90,9 @@ export class SelectComponent implements OnInit {
     this.selectedDestination = destination.desc;
     this.isDestinationMenuOpen = false;
 
-    this.availableOrigins = this.destinations.filter(dest => dest.desc !== destination.desc);
+    this.availableOrigins = this.destinations.filter(
+      (dest) => dest.desc !== destination.desc
+    );
     if (this.selectedOrigin && this.selectedOrigin === destination.desc) {
       this.selectedOrigin = null;
     }
@@ -127,5 +137,12 @@ export class SelectComponent implements OnInit {
 
   toggleLuggageMenu(): void {
     this.isLuggageMenuOpen = !this.isLuggageMenuOpen;
+  }
+
+  //Submit button handler
+  @Output() submit: EventEmitter<void> = new EventEmitter<void>();
+
+  onSubmit() {
+    this.submit.emit();
   }
 }
