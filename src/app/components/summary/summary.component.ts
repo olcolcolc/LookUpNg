@@ -36,7 +36,7 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
-    this.selectedDestination = "Berlin";
+    this.selectedDestination = this.summaryService.selectedDestination;
     this.selectedDate = this.summaryService.selectedDate;
     this.selectedPassengerCount = this.summaryService.selectedPassengerCount;
     this.selectedLuggageOption = this.summaryService.selectedLuggageOption;

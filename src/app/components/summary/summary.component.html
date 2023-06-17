@@ -1,5 +1,5 @@
 <div class="summary">
-  <h1>Your ticket</h1>
+  <h1>Summary</h1>
   <div class="summary__ticket">
     <div class="summary__ticket__left">
       <p>From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></p>
@@ -17,6 +17,7 @@
           <button
             class="summary__price__currencyBtn"
             (click)="setCurrency('PLN', 'zł')"
+            autofocus
           >
             PLN
           </button>
