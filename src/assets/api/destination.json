@@ -16,13 +16,13 @@
       "value" : "berlin",
       "desc" : "Berlin",
       "code" : "bln"
-  }
+  },
   {
     "id" : "4",
     "value" : "rome",
     "desc" : "Rome",
     "code" : "fco"
-}
+},
 {
   "id" : "5",
   "value" : "new york",

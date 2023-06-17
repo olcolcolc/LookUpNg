@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryService } from './services/summary.service';
 import { WeatherService } from './services/weather.service';
+import { CurrencyConversionPipe } from './pipes/currency-conversion.pipe';
 
 
 
@@ -30,6 +31,7 @@ import { WeatherService } from './services/weather.service';
     MainComponent,
     SelectComponent,
     SummaryComponent,
+    CurrencyConversionPipe,
   ],
   imports: [
     BrowserModule,

@@ -16,4 +16,33 @@
     width: 50em;
     padding: 0 100px;
   }
+
+  &__price{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p{
+      text-align: center;
+      margin: 0;
+    }
+    &__currencyBtn{
+      background-color: transparent;
+      color: grey;
+      cursor: pointer;
+      margin-left: 1rem;
+      border: 1px solid grey;
+      border-radius: 5px;
+      font-size: 0.8em;
+      padding: 0.5em;
+      &:hover{
+        color:black;
+        font-weight: bold;
+      }
+    }
+    &__value{
+      margin-left: 1.5em;
+      margin-top: 0.5em;
+      font-size: 2.5em;
+    }
+  }
 }
