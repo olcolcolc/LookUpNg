@@ -103,4 +103,6 @@ export class SummaryComponent implements OnInit {
     this.weatherData.temp_max = (this.weatherData.main.temp_max - 273.15).toFixed(0);
     this.weatherData.temp_feels_like = (this.weatherData.main.feels_like - 273.15).toFixed(0);
   }
+
+
 }

@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryService } from './services/summary.service';
 import { CurrencyConversionPipe } from './pipes/currency-conversion.pipe';
+import { SkyscannerService } from './services/skyscanner.service';
 
 
 
@@ -45,7 +46,7 @@ import { CurrencyConversionPipe } from './pipes/currency-conversion.pipe';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [DestinationService, SummaryService],
+  providers: [DestinationService, SummaryService, SkyscannerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
