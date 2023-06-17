@@ -10,7 +10,7 @@ import { environment } from '../../enviroments/enviroment.prod';
 })
 export class SummaryComponent implements OnInit {
   weatherData: any;
-  apiKey: string = environment.apiKey;
+  apiKeyWeather: string = environment.apiKeyWeather;
 
   selectedOrigin: string | null = null;
   selectedDestination: string | null = null;
@@ -84,7 +84,7 @@ export class SummaryComponent implements OnInit {
 
   getWeatherData(selectedDestination: string): void {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${this.apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${this.apiKeyWeather}`
     )
       .then((response) => response.json())
       .then((data) => {
