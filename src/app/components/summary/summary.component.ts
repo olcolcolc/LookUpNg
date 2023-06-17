@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from 'src/app/services/weather.service';
 import { SummaryService } from 'src/app/services/summary.service';
-import {
-  faHome,
-  faCalendarAlt,
-  faMapMarker,
-  faUser,
-  faSuitcase,
-  faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
-import { WeatherData } from '../../interfaces/weather-data';
+import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud } from '@fortawesome/free-solid-svg-icons';
+import { environment } from '../../enviroments/enviroment.prod';
 
 @Component({
   selector: 'app-summary',
@@ -17,41 +9,44 @@ import { WeatherData } from '../../interfaces/weather-data';
   styleUrls: ['./summary.component.scss'],
 })
 export class SummaryComponent implements OnInit {
-  //Weather Api variables
-  feelsLike: string | null = null;
-  weatherData: WeatherData | undefined;
+  weatherData: any;
+  apiKey: string = environment.apiKey;
 
-  //Selected Variables
   selectedOrigin: string | null = null;
   selectedDestination: string | null = null;
   selectedDate: Date | null = null;
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
 
-  //Ticket price
   ticketPrice: number = 530;
   selectedCurrency: string = 'PLN';
   currencySymbol: string = 'zł';
 
-  //Icons
   originIcon = faHome;
   dateIcon = faCalendarAlt;
   destinationIcon = faMapMarker;
   passengersIcon = faUser;
   luggageIcon = faSuitcase;
   infoIcon = faInfoCircle;
+  sunIcon = faSun;
+  moonIcon = faMoon;
+  cloudIcon = faCloud;
 
-  constructor(
-    private summaryService: SummaryService,
-    private weatherService: WeatherService
-  ) {}
+  constructor(private summaryService: SummaryService) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
-    this.selectedDestination = this.summaryService.selectedDestination;
+    this.selectedDestination = "Berlin";
     this.selectedDate = this.summaryService.selectedDate;
     this.selectedPassengerCount = this.summaryService.selectedPassengerCount;
     this.selectedLuggageOption = this.summaryService.selectedLuggageOption;
+    this.weatherData = {
+      main: {},
+      isDay: true,
+    };
+    if (this.selectedDestination !== null) {
+      this.getWeatherData(this.selectedDestination);
+    }
   }
 
   formatSelectedDate(): string {
@@ -61,10 +56,8 @@ export class SummaryComponent implements OnInit {
         month: '2-digit',
         year: 'numeric',
       };
-
       return this.selectedDate.toLocaleDateString(undefined, options);
     }
-
     return 'Date';
   }
 
@@ -79,32 +72,35 @@ export class SummaryComponent implements OnInit {
       EUR: 0.23,
       USD: 0.27,
     };
-
     if (exchangeRates[this.selectedCurrency]) {
       return this.ticketPrice * exchangeRates[this.selectedCurrency];
     }
-
     return this.ticketPrice;
   }
+
+  setSelectedDate(date: Date) {
+    this.selectedDate = date;
+  }
+
+  getWeatherData(selectedDestination: string): void {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${this.apiKey}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.setWeatherData(data);
+      });
+  }
+
+  setWeatherData(data: any): void {
+    this.weatherData = data;
+    let sunsetTime = new Date(this.weatherData.sys.sunset * 1000);
+    this.weatherData.sunset_time = sunsetTime.toLocaleTimeString();
+    let currentDate = new Date();
+    this.weatherData.isDay = currentDate.getTime() < sunsetTime.getTime();
+    this.weatherData.temp_celcius = (this.weatherData.main.temp - 273.15).toFixed(0);
+    this.weatherData.temp_min = (this.weatherData.main.temp_min - 273.15).toFixed(0);
+    this.weatherData.temp_max = (this.weatherData.main.temp_max - 273.15).toFixed(0);
+    this.weatherData.temp_feels_like = (this.weatherData.main.feels_like - 273.15).toFixed(0);
+  }
 }
-
-
-  // getWeatherData(): void {
-  //   if (this.selectedDestination) {
-  //     this.weatherService.getWeather(this.selectedDestination).subscribe((data: any) => {
-  //       try {
-  //         this.weatherData = JSON.parse(data);
-  //         console.log(this.weatherData, "data")
-  //         if (this.weatherData && this.weatherData.main && this.weatherData.main.temp) {
-  //           const temperatureInCelsius = this.weatherData.main.temp - 273.15; // Przeliczenie na stopnie Celsiusza
-  //           this.feelsLike = temperatureInCelsius.toFixed(1).toString();
-  //           console.log("temperature", this.weatherData.main.feels_like)
-  //         }
-  //       } catch (error) {
-  //         console.error("Błąd parsowania danych JSON:", error);
-  //       }
-  //     });
-  //   }
-  // }
-
-
