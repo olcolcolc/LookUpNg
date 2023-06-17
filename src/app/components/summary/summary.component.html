@@ -11,7 +11,15 @@
         Passengers: {{ selectedPassengerCount }}
         <fa-icon [icon]="passengersIcon"></fa-icon>
       </p>
+      <div class="summary__price">
+      <p>Price in:</p>
+      <div class="summary__price__currencies">
+        <button class="summary__price__currencyBtn" (click)="setCurrency('PLN', 'zł')">PLN</button>
+        <button class="summary__price__currencyBtn" (click)="setCurrency('USD', '$')">USD</button>
+        <button class="summary__price__currencyBtn" (click)="setCurrency('EUR', '€')">EUR</button>
+      </div>
     </div>
+    <p class="summary__price__value">{{ getConvertedPrice() | number: '1.2-2' }} {{ currencySymbol }}</p>    </div>
     <div class="summary__ticket__right">
       <p>
         Luggage: {{ selectedLuggageOption }}
@@ -22,6 +30,7 @@
         Date: {{ formatSelectedDate() }} <fa-icon [icon]="dateIcon"></fa-icon>
       </p>
       <p>Weather in {{ selectedDestination }}</p>
+      <!-- <p>{{getWeatherData()}}</p> -->
     </div>
   </div>
 </div>
