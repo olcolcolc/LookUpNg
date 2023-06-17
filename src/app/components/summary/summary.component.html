@@ -1,5 +1,5 @@
 <div class="summary">
-  <h1>Your ticket</h1>
+  <h1>Summary</h1>
   <div class="summary__ticket">
     <div class="summary__ticket__left">
       <p>From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></p>
@@ -12,14 +12,33 @@
         <fa-icon [icon]="passengersIcon"></fa-icon>
       </p>
       <div class="summary__price">
-      <p>Price in:</p>
-      <div class="summary__price__currencies">
-        <button class="summary__price__currencyBtn" (click)="setCurrency('PLN', 'zł')">PLN</button>
-        <button class="summary__price__currencyBtn" (click)="setCurrency('USD', '$')">USD</button>
-        <button class="summary__price__currencyBtn" (click)="setCurrency('EUR', '€')">EUR</button>
+        <p>Price in:</p>
+        <div class="summary__price__currencies">
+          <button
+            class="summary__price__currencyBtn"
+            (click)="setCurrency('PLN', 'zł')"
+            autofocus
+          >
+            PLN
+          </button>
+          <button
+            class="summary__price__currencyBtn"
+            (click)="setCurrency('USD', '$')"
+          >
+            USD
+          </button>
+          <button
+            class="summary__price__currencyBtn"
+            (click)="setCurrency('EUR', '€')"
+          >
+            EUR
+          </button>
+        </div>
       </div>
+      <p class="summary__price__value">
+        {{ getConvertedPrice() | number : "1.2-2" }} {{ currencySymbol }}
+      </p>
     </div>
-    <p class="summary__price__value">{{ getConvertedPrice() | number: '1.2-2' }} {{ currencySymbol }}</p>    </div>
     <div class="summary__ticket__right">
       <p>
         Luggage: {{ selectedLuggageOption }}
@@ -29,8 +48,23 @@
       <p>
         Date: {{ formatSelectedDate() }} <fa-icon [icon]="dateIcon"></fa-icon>
       </p>
-      <p>Weather in {{ selectedDestination }}</p>
-      <!-- <p>{{getWeatherData()}}</p> -->
+      <div class="weatherDiv">
+        <div *ngIf="weatherData.isDay" class="weatherDiv__row">
+          <fa-icon class="sun" [icon]="sunIcon"></fa-icon>
+        </div>
+        <div *ngIf="!weatherData.isDay" class="weatherDiv__row">
+          <fa-icon class="moon" [icon]="moonIcon"></fa-icon>
+        </div>
+        <div class="cloudDiv">
+          <fa-icon class="cloud" [icon]="cloudIcon"></fa-icon>
+        </div>
+        <div class="weatherDiv__row" style="font-size: 32px; margin-top: 5px">
+          {{ weatherData.temp_celcius }}°
+        </div>
+        <div class="weatherDiv__row" style="font-size: 25px; margin-top: 10px">
+          {{ selectedDestination }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

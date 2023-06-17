@@ -15,7 +15,26 @@
     text-align: left;
     width: 50em;
     padding: 0 100px;
+    font-size: 16px;
+    p{
+      padding-top: 10px;
+    }
   }
+
+  h1 {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;  // odległość podkreślenia od tekstu
+      left: 0;
+      width: 100%;
+      height: 1px;  // grubość podkreślenia
+      background: linear-gradient(to right, transparent, #12345c, transparent);
+    }
+  }
+
 
   &__price{
     display: flex;
@@ -34,15 +53,70 @@
       border-radius: 5px;
       font-size: 0.8em;
       padding: 0.5em;
-      &:hover{
+      &:hover, &:focus{
+        border: 1.5px black solid;
         color:black;
         font-weight: bold;
       }
     }
     &__value{
-      margin-left: 1.5em;
+      margin-left: 0.7em;
       margin-top: 0.5em;
       font-size: 2.5em;
     }
   }
 }
+
+.weatherDiv{
+  margin-top: 20px;
+  padding-top: 25px;
+  display: block;
+  border-radius: 10px;
+  width: 200px;
+  height: 220px;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+  color: white;;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  &__row{
+    display:block;
+    margin:15px auto;
+    width: fit-content;
+  }
+}
+
+.sun, .cloud, .moon{
+  font-size: 50px;
+}
+
+
+.sun{
+  color: yellow;
+  filter: drop-shadow( 1px 1px 10px yellow);
+}
+
+.moon{
+  color: white;
+  filter: drop-shadow( 1px 1px 10px white);
+}
+
+.cloudDiv{
+  margin-top: -50px;
+  margin-bottom: 10px;
+}
+
+.cloud{
+  color: rgb(104, 175, 197);
+  filter: drop-shadow( 1px 1px 5px rgb(104, 175, 197));
+  animation-name: cloudMovement;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+}
+
+@keyframes cloudMovement{
+  from{margin-left: 20px;}
+  to{margin-left: 65px;}
+}
+
