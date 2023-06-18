@@ -26,7 +26,7 @@
   &__luggageBtn,
   &__passengers__submenu__acceptBtn,
   &__submit {
-    flex: 1;
+    // flex: 1;
     border-radius: 10px 20px 10px 20px;
     width: 180px;
     height: 50px;
@@ -40,7 +40,6 @@
     border: none;
     font-family: "Quicksand", sans-serif;
     font-size: 1rem;
-    // position: relative; /* Dodane */
   }
 
   &__originBtn:hover,
@@ -181,3 +180,30 @@ fa-icon {
   font-size: 20px;
   margin-left: 10px;
 }
+
+
+@media (max-width: 720px) {
+  .selectContainer{
+    top: 20%;
+    border-radius: 0;
+
+  &__ups{
+    flex-direction: column;
+  }
+  &__downs {
+    flex-direction: column;
+  }
+
+  &__originBtn,
+  &__dateBtn,
+  &__destinationBtn,
+  &__passengersBtn,
+  &__luggageBtn,
+  &__passengers__submenu__acceptBtn,
+  &__submit {
+    width: 300px;
+  }
+}
+}
+
+

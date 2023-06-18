@@ -53,6 +53,7 @@
       height: 100%;
 
       &--btn{
+        content: "Login";
         &--closed{
           @include login-button;
         }
@@ -89,4 +90,10 @@
   to {
     transform: translateY(100%);
   }
+}
+
+@media (max-width: 350px) {
+  .navbar__login--btn{
+    content: "="
+}
 }
