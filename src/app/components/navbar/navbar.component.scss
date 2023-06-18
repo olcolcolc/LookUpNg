@@ -5,15 +5,15 @@
   height: 100%;
   border-radius: 15px 40px 15px 40px;
   padding: 0 50px;
-  font-family: "Quicksand",sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 1.2rem;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   outline: none;
   background-color: #12345c;
   border: none;
 }
 
-.navbar{
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,23 +23,23 @@
   margin: 0;
   padding: 0 4% 0 4%;
   background-color: #fff;
-  box-shadow: 0 0 30px 0 rgba(0,0,0,.3);
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
 
-  &__logo{
-    font-family: "Squada One",sans-serif;
+  &__logo {
+    font-family: "Squada One", sans-serif;
 
-    & img{
+    & img {
       width: 50px;
       height: auto;
-      font-family: "Squada One",sans-serif;
+      font-family: "Squada One", sans-serif;
       margin-right: 20px;
     }
 
-    & a{
+    & a {
       display: flex;
       align-items: center;
       text-decoration: none;
-      font-family: "Squada One",sans-serif;
+      font-family: "Squada One", sans-serif;
       font-size: 2rem;
       color: #12345c;
       margin-left: 15px;
@@ -48,20 +48,19 @@
   }
 
   &__login {
-      margin-right: 20px;
-      z-index: 7;
-      height: 100%;
+    margin-right: 20px;
+    z-index: 7;
+    height: 100%;
 
-      &--btn{
-        &--closed{
-          @include login-button;
-        }
-        &--opened{
-          @include login-button;
-          border-radius: 15px 40px 0 0;
-        }
+    &--btn {
+      &--closed {
+        @include login-button;
       }
-
+      &--opened {
+        @include login-button;
+        border-radius: 15px 40px 0 0;
+      }
+    }
   }
 }
 
@@ -88,5 +87,22 @@
   }
   to {
     transform: translateY(100%);
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar {
+    padding: 0 5px;
+
+    &__login {
+      margin-right: 0px;
+      margin-left: 5px;
+    }
+    & img{
+      margin-right: 10px
+    }
+    &a{
+      font-size: 1.5rem;
+    }
   }
 }

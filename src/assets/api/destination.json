@@ -3,19 +3,19 @@
       "id" : "1",
       "value" : "warsaw",
       "desc" : "Warsaw",
-      "code" : "war"
+      "code" : "waw"
   },
   {
       "id" : "2",
       "value" : "london",
       "desc" : "London",
-      "code" : "lon"
+      "code" : "lhr"
   },
   {
       "id" : "3",
       "value" : "berlin",
       "desc" : "Berlin",
-      "code" : "bln"
+      "code" : "ber"
   },
   {
     "id" : "4",
@@ -27,7 +27,7 @@
   "id" : "5",
   "value" : "new york",
   "desc" : "New York",
-  "code" : "nyc"
+  "code" : "jfk"
 }
 ]
 

@@ -51,20 +51,31 @@
 
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+// @keyframes fade-in {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
+// @keyframes fade-out {
+//   from {
+//     opacity: 1;
+//   }
+//   to {
+//     opacity: 0;
+//   }
+// }
+
+@media (max-width: 500px) {
+  .login__container {
+    display: flex;
+    padding: auto 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(18, 52, 92, 0.97);
   }
 }

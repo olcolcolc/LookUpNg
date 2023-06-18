@@ -1,23 +1,28 @@
-.summary{
+.summary {
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
   padding: 2.5em;
+  background-color: white;
   width: 50em;
   color: #12345c;
   margin: 50px auto;
   text-align: center;
-  &__ticket{
+  &__ticket {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     text-align: left;
     width: 50em;
     padding: 0 100px;
     font-size: 16px;
-    p{
+    p {
       padding-top: 10px;
+    }
+    &__left,
+    &__right {
+      width: 300px;
     }
   }
 
@@ -27,24 +32,23 @@
     &::after {
       content: "";
       position: absolute;
-      bottom: -10px;  // odległość podkreślenia od tekstu
+      bottom: -10px; // odległość podkreślenia od tekstu
       left: 0;
       width: 100%;
-      height: 1px;  // grubość podkreślenia
+      height: 1px; // grubość podkreślenia
       background: linear-gradient(to right, transparent, #12345c, transparent);
     }
   }
 
-
-  &__price{
+  &__price {
     display: flex;
     flex-direction: row;
     align-items: center;
-    p{
+    p {
       text-align: center;
       margin: 0;
     }
-    &__currencyBtn{
+    &__currencyBtn {
       background-color: transparent;
       color: grey;
       cursor: pointer;
@@ -53,13 +57,14 @@
       border-radius: 5px;
       font-size: 0.8em;
       padding: 0.5em;
-      &:hover, &:focus{
+      &:hover,
+      &:focus {
         border: 1.5px black solid;
-        color:black;
+        color: black;
         font-weight: bold;
       }
     }
-    &__value{
+    &__value {
       margin-left: 0.7em;
       margin-top: 0.5em;
       font-size: 2.5em;
@@ -67,47 +72,53 @@
   }
 }
 
-.weatherDiv{
+.weatherDiv {
   margin-top: 20px;
   padding-top: 25px;
   display: block;
   border-radius: 10px;
   width: 200px;
   height: 220px;
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
-  color: white;;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  &__row{
-    display:block;
-    margin:15px auto;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(8, 7, 42, 1) 75%,
+    rgb(8, 10, 63) 100%
+  );
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  &__row {
+    display: block;
+    margin: 15px auto;
     width: fit-content;
   }
 }
 
-.sun, .cloud, .moon{
+.sun,
+.cloud,
+.moon {
   font-size: 50px;
 }
 
-
-.sun{
+.sun {
   color: yellow;
-  filter: drop-shadow( 1px 1px 10px yellow);
+  filter: drop-shadow(1px 1px 10px yellow);
 }
 
-.moon{
+.moon {
   color: white;
-  filter: drop-shadow( 1px 1px 10px white);
+  filter: drop-shadow(1px 1px 10px white);
 }
 
-.cloudDiv{
+.cloudDiv {
   margin-top: -50px;
   margin-bottom: 10px;
 }
 
-.cloud{
+.cloud {
   color: rgb(104, 175, 197);
-  filter: drop-shadow( 1px 1px 5px rgb(104, 175, 197));
+  filter: drop-shadow(1px 1px 5px rgb(104, 175, 197));
   animation-name: cloudMovement;
   animation-iteration-count: infinite;
   animation-duration: 5s;
@@ -115,8 +126,29 @@
   animation-direction: alternate;
 }
 
-@keyframes cloudMovement{
-  from{margin-left: 20px;}
-  to{margin-left: 65px;}
+@keyframes cloudMovement {
+  from {
+    margin-left: 20px;
+  }
+  to {
+    margin-left: 65px;
+  }
 }
 
+@media (max-width: 720px) {
+  .summary__ticket {
+    flex-direction: column;
+    &__left,
+    &__right {
+      margin: 0 auto;
+      font-size: 120%;
+    }
+    & p {
+      padding: 10px 0;
+    }
+  }
+  .weatherDiv {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

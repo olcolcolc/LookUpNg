@@ -6,25 +6,25 @@
 
   &__img{
     position: absolute;
-    left: 0;
-    height: 80%;
+    left: 10%;
+    height: 100%;
     width: 70%;
-    background-position: 50%;
-    background-clip: content-box;
+    background-image: url('/assets/images/airport.jpeg');
+    background-repeat: no-repeat;
     background-size: cover;
+    background-position: 50%;
     border-radius: 0 150px 0 0;
-    margin-left:180px;
     z-index: -1;
   }
 
   &__textContainer{
     width: 600px;
-    height: 150px;
+    height: 200px;
     background-color: white;
     position: absolute;
     right: 10%;
     top: 25%;
-    padding: 20px 40px 20px 10px;
+    padding: 40px 40px 20px 10px;
     font-size: 3rem;
     text-align: left;
     font-weight: 300;
@@ -62,7 +62,20 @@
     }
   }
 
+
 }
 
 
 
+@media (max-width: 720px) {
+  .mainContainer {
+  &__img {
+    width: 100%;
+    left: 0;
+    border-radius: 0;
+  }
+  &__textContainer{
+    display: none;
+  }
+}
+}
