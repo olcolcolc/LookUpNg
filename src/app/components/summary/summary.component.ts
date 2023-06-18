@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
 import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud } from '@fortawesome/free-solid-svg-icons';
-import { environment } from '../../enviroments/enviroment.prod';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-summary',
