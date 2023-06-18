@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from '../../environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkyscannerService {
+  apiKeySkyscanner: string = environment.apiKeySkyscanner;
+
 
   async searchFlights(): Promise<any> {
     const options = {
@@ -12,7 +16,7 @@ export class SkyscannerService {
       url: 'https://skyscanner-api.p.rapidapi.com/v3/flights/live/search/create',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'c868494e56mshe51b3980a772538p18dca4jsnb6253af150e2',
+        'X-RapidAPI-Key': `${this.apiKeySkyscanner}`,
         'X-RapidAPI-Host': 'skyscanner-api.p.rapidapi.com'
       },
       data: {
