@@ -1,11 +1,11 @@
 <div class="mainContainer">
   <img class="mainContainer__img" *ngIf="showSummary">
-  <div class="mainContainer__textContainer" *ngIf="showSummary">
+  <div class="mainContainer__textContainer" *ngIf="!showSummary">
     <p class="mainContainer__textContainer__text">Conveniently plan <br><br><br>your flights</p>
   </div>
   <div>
-    <app-select *ngIf="showSummary" (submit)="onSubmit()"></app-select>
-    <app-summary *ngIf="!showSummary"></app-summary>
+    <app-select *ngIf="!showSummary" (submit)="onSubmit()"></app-select>
+    <app-summary *ngIf="showSummary"></app-summary>
   </div>
 </div>
 

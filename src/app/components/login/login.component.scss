@@ -69,6 +69,13 @@
 //   }
 // }
 
-@media (max-width: 350px) {
-  
+@media (max-width: 500px) {
+  .login__container {
+    display: flex;
+    padding: auto 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(18, 52, 92, 0.97);
+  }
 }
