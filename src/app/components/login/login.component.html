@@ -1,10 +1,19 @@
 
 
 <div class="login__container">
-  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" >
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" *ngIf="!showSignupForm" >
     <input type="text" formControlName="email">
     <input type="text" formControlName="password">
     <button class="login__container__button" [disabled]="!loginForm.valid"
-            (click)="submitLogin()"> Zatwierdź</button>
+            (click)="submitLogin()">Login</button>
+            <button class="signup__enterBtn" (click)="toggleSignupForm()">Sign in</button>
+    </form>
+
+    <form [formGroup]="signupForm" (ngSubmit)="submitSignup()" *ngIf="showSignupForm">
+      <input type="text" formControlName="email">
+      <input type="text" formControlName="password">
+      <button class="login__container__button" [disabled]="!signupForm.valid" (click)="submitSignup()">Sign Up</button>
+      <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
+
     </form>
 </div>

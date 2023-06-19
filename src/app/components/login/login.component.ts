@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
   loginForm = new FormGroup({
-    email: new FormControl('Podaj e-mail', {
+    email: new FormControl('E-mail', {
       validators: [
         Validators.required,
         Validators.email,
@@ -18,7 +18,7 @@ export class LoginComponent {
       ],
       updateOn: 'blur'
     }),
-    password: new FormControl('Podaj hasło', {
+    password: new FormControl('Password', {
       validators: [
         Validators.required,
         Validators.minLength(8),
@@ -29,7 +29,42 @@ export class LoginComponent {
 
   constructor() {}
 
+  signupForm = new FormGroup({
+    email: new FormControl('E-mail', {
+      validators: [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(8),
+      ],
+      updateOn: 'blur',
+    }),
+    password: new FormControl('Password', {
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
+      ],
+    }),
+  });
+
+  showSignupForm: boolean = false;
+  showLoginForm: boolean = true;
+
   submitLogin() {
     console.log(this.loginForm.value);
+  }
+
+  submitSignup() {
+    console.log(this.signupForm.value);
+  }
+
+  toggleSignupForm() {
+    this.showSignupForm = !this.showSignupForm;
+    this.showLoginForm = false;
+  }
+
+  toggleLoginForm() {
+    this.showLoginForm = true;
+
   }
 }
