@@ -55,6 +55,16 @@
   }
 }
 
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+
 @media (max-width: 500px) {
   .login__container {
     display: flex;

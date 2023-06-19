@@ -1,14 +1,14 @@
 <div class="login__container">
   <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showSignupForm">
-    <input type="text" formControlName="email">
-    <input type="text" formControlName="password">
+    <input type="text" formControlName="email" placeholder="E-mail">
+    <input type="text" formControlName="password" placeholder="Password">
     <button class="login__container__button" (click)="login()">Login</button>
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Sign in</button>
   </form>
 
   <form [formGroup]="signupForm" (ngSubmit)="signup()" *ngIf="showSignupForm">
-    <input type="text" formControlName="email">
-    <input type="text" formControlName="password">
+    <input type="text" formControlName="email" placeholder="E-mail">
+    <input type="text" formControlName="password" placeholder="Password">
     <button class="login__container__button" (click)="signup()">Sign Up</button>
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
   </form>

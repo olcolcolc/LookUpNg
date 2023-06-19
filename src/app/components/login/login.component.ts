@@ -72,7 +72,6 @@ export class LoginComponent {
     console.log("click signup")
     if (this.signupForm.invalid) {
       return console.log(" signup invalid");
-
     }
 
     const email = this.signupForm.value.email as string;
@@ -100,6 +99,8 @@ export class LoginComponent {
     this.showLoginForm = true;
     this.showSignupForm = false;
   }
+
+
 }
 
 
