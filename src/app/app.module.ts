@@ -21,9 +21,8 @@ import { SummaryService } from './services/summary.service';
 import { CurrencyConversionPipe } from './pipes/currency-conversion.pipe';
 import { SkyscannerService } from './services/skyscanner.service';
 import {AngularFireModule} from '@angular/fire/compat'
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/compat/auth'
+import {AngularFireAuthModule} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.prod';
-
 
 
 
@@ -50,10 +49,9 @@ import { environment } from 'src/environments/environment.prod';
     MatDatepickerModule,
     MatNativeDateModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFireModule
+    AngularFireAuthModule
   ],
-  providers: [DestinationService, SummaryService, SkyscannerService, AngularFireAuth],
+  providers: [DestinationService, SummaryService, SkyscannerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
