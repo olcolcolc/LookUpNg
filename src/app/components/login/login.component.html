@@ -1,19 +1,29 @@
-
-
 <div class="login__container">
-  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" *ngIf="!showSignupForm" >
-    <input type="text" formControlName="email">
-    <input type="text" formControlName="password">
-    <button class="login__container__button" [disabled]="!loginForm.valid"
-            (click)="submitLogin()">Login</button>
-            <button class="signup__enterBtn" (click)="toggleSignupForm()">Sign in</button>
-    </form>
+  <!-- Formularz logowania -->
+  <form #loginFormRef="ngForm" [formGroup]="loginForm" (ngSubmit)="submitLogin(loginFormRef)" *ngIf="!showSignupForm">
+    <input type="email" formControlName="email" placeholder="E-mail" />
+    <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['required']" class="error">Email is required</div>
+    <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['email']" class="error">Invalid email format</div>
 
-    <form [formGroup]="signupForm" (ngSubmit)="submitSignup()" *ngIf="showSignupForm">
-      <input type="text" formControlName="email">
-      <input type="text" formControlName="password">
-      <button class="login__container__button" [disabled]="!signupForm.valid" (click)="submitSignup()">Sign Up</button>
-      <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['required']" class="error">Password is required</div>
+    <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['minlength']" class="error">Password must be at least 8 characters long</div>
 
-    </form>
+    <button class="login__container__button" [disabled]="!loginForm.valid" type="button" (click)="login()">Login</button>
+    <button class="signup__enterBtn" (click)="toggleSignupForm()">Sign up</button>
+  </form>
+
+  <!-- Formularz rejestracji -->
+  <form #signupFormRef="ngForm" [formGroup]="signupForm" (ngSubmit)="submitSignup(signupFormRef)" *ngIf="showSignupForm">
+    <input type="email" formControlName="email" placeholder="E-mail" />
+    <div *ngIf="signupForm.controls['email'].touched && signupForm.controls['email'].errors?.['required']" class="error">Email is required</div>
+    <div *ngIf="signupForm.controls['email'].touched && signupForm.controls['email'].errors?.['email']" class="error">Invalid email format</div>
+
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.['required']" class="error">Password is required</div>
+    <div *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.['minlength']" class="error">Password must be at least 8 characters long</div>
+
+    <button class="login__container__button" [disabled]="!signupForm.valid" type="button" (click)="signUp()">Sign Up</button>
+    <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
+  </form>
 </div>
