@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -8,41 +8,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   loginForm = new FormGroup({
-    email: new FormControl('E-mail', {
+    email: new FormControl('', {
       validators: [
         Validators.required,
         Validators.email,
-        Validators.maxLength(8)
-      ],
-      updateOn: 'blur'
-    }),
-    password: new FormControl('Password', {
-      validators: [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$')
-      ]
-    })
-  });
-
-  constructor() {}
-
-  signupForm = new FormGroup({
-    email: new FormControl('E-mail', {
-      validators: [
-        Validators.required,
-        Validators.email,
-        Validators.maxLength(8),
       ],
       updateOn: 'blur',
     }),
-    password: new FormControl('Password', {
+    password: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
+      ],
+    }),
+  });
+
+  signupForm = new FormGroup({
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.email,
+      ],
+      updateOn: 'blur',
+    }),
+    password: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
       ],
     }),
   });
@@ -50,12 +43,52 @@ export class LoginComponent {
   showSignupForm: boolean = false;
   showLoginForm: boolean = true;
 
-  submitLogin() {
-    console.log(this.loginForm.value);
+  constructor(private afAuth: AngularFireAuth) {}
+
+  login() {
+    console.log("click login")
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const email = this.loginForm.value.email as string;
+    const password = this.loginForm.value.password as string;
+
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('Login successful');
+        if (!this.loginForm.valid) {
+          console.log('invalid');
+        }
+      })
+      .catch((error) => {
+        console.log('Login error', error);
+      });
   }
 
-  submitSignup() {
-    console.log(this.signupForm.value);
+  signup() {
+    console.log("click signup")
+    if (this.signupForm.invalid) {
+      return console.log(" signup invalid");
+
+    }
+
+    const email = this.signupForm.value.email as string;
+    const password = this.signupForm.value.password as string;
+
+    this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('Signup successful');
+        if (!this.loginForm.valid) {
+          console.log('invalid');
+        }
+      })
+      .catch((error) => {
+        console.log('Signup error', error);
+      });
   }
 
   toggleSignupForm() {
@@ -65,6 +98,10 @@ export class LoginComponent {
 
   toggleLoginForm() {
     this.showLoginForm = true;
-
+    this.showSignupForm = false;
   }
 }
+
+
+//aaaal@wp.pl
+//12345678
