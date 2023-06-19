@@ -1,15 +1,19 @@
 <div class="login__container">
   <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showSignupForm">
-    <input type="text" formControlName="email" placeholder="E-mail">
-    <input type="text" formControlName="password" placeholder="Password">
+    <input type="text" formControlName="email" placeholder="E-mail" [class.error]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+    <input type="text" formControlName="password" placeholder="Password" [class.error]="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+
+
     <button class="login__container__button" (click)="login()">Login</button>
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Sign in</button>
   </form>
 
   <form [formGroup]="signupForm" (ngSubmit)="signup()" *ngIf="showSignupForm">
-    <input type="text" formControlName="email" placeholder="E-mail">
-    <input type="text" formControlName="password" placeholder="Password">
+    <input type="text" formControlName="email" placeholder="E-mail" [class.error]="signupForm.controls.email.invalid && signupForm.controls.email.touched">
+    <input type="text" formControlName="password" placeholder="Password" [class.error]="signupForm.controls.password.invalid && signupForm.controls.password.touched">
+
     <button class="login__container__button" (click)="signup()">Sign Up</button>
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
   </form>
+  <span class="error-message">{{errorMessage}}</span>
 </div>
