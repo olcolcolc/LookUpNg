@@ -5,10 +5,20 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ToastService {
-  private toastMessageSource = new Subject<string>();
-  toastMessage$ = this.toastMessageSource.asObservable();
+  isWarningMessage(toastMessage: string) {
+    throw new Error('Method not implemented.');
+  }
+  private warningMessageSource = new Subject<string>();
+  private successMessageSource = new Subject<string>();
 
-  setToastMessage(message: string): void {
-    this.toastMessageSource.next(message);
+  warningMessage$ = this.warningMessageSource.asObservable();
+  successMessage$ = this.successMessageSource.asObservable();
+
+  setWarningMessage(message: string): void {
+    this.warningMessageSource.next(message);
+  }
+
+  setSuccessMessage(message: string): void {
+    this.successMessageSource.next(message);
   }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../../services/auth.service'
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +53,8 @@ export class LoginComponent {
     return emailRegex.test(email);
   }
 
-  constructor(private afAuth: AngularFireAuth, private authService: AuthService) {}
+  constructor(private afAuth: AngularFireAuth, private authService: AuthService,
+    private toastService: ToastService) {}
 
   // LOGIN FUNCTION
   login() {
@@ -81,6 +83,7 @@ export class LoginComponent {
     this.authService.login(email, password)
       .then(() => {
         this.errorMessage = ""
+        this.toastService.setSuccessMessage("You're logged in!");
         console.log('Login successful');
       })
       .catch((error: { message: string; }) => {
@@ -122,6 +125,7 @@ export class LoginComponent {
       .then(() => {
         console.log('Signup successful');
         this.errorMessage = ""
+        this.toastService.setSuccessMessage("You're signed up!");
         if (!this.loginForm.valid) {
           this.errorMessage = "Signup invalid";
         }
