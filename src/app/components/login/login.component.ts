@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../../services/auth.service'
@@ -45,7 +45,6 @@ export class LoginComponent {
   showSignupForm: boolean = false;
   showLoginForm: boolean = true;
 
-  error = '';
   errorMessage: string = "";
 
   isValidEmail(email: string): boolean {
@@ -63,26 +62,13 @@ export class LoginComponent {
     const email = this.loginForm.value.email as string;
     const password = this.loginForm.value.password as string;
 
-    if (!password && !email) {
-      this.errorMessage = 'Please check the fields';
-      return;
-    }
-    else if (password && !email) {
-      this.errorMessage = 'Please check the e-mail field';
-      return;
-    }
-    else if (!this.isValidEmail(email)) {
-      this.errorMessage = 'Enter a valid email address';
-      return;
-    }
-    else if (!password && email) {
-      this.errorMessage = 'Please check the password field';
+    if (!this.validation(email, password)) {
       return;
     }
 
     this.authService.login(email, password)
       .then(() => {
-        this.errorMessage = ""
+        this.errorMessage = "";
         this.toastService.setSuccessMessage(`${email} You're logged in!`);
         console.log('Login successful');
       })
@@ -95,48 +81,26 @@ export class LoginComponent {
 
   // SIGNUP FUNCTION
   signup() {
-
     const email = this.signupForm.value.email as string;
     const password = this.signupForm.value.password as string;
 
-    console.log("click signup")
-    if (!password && !email) {
-      this.errorMessage = 'Please check the fields';
-      return;
-    }
-    else if (password && !email) {
-      this.errorMessage = 'Please check the e-mail field';
-      return;
-    }
-    else if (!this.isValidEmail(email)) {
-      this.errorMessage = 'Enter a valid email address';
-      return;
-    }
-    else if (!password && email) {
-      this.errorMessage = 'Please check the password field';
-      return;
-    }
-    else if (password.length < 8 && email && password) {
-      this.errorMessage = 'Password must have min 8 characters';
+    if (!this.validation(email, password)) {
       return;
     }
 
     this.authService.signup(email, password)
       .then(() => {
         console.log('Signup successful');
-        this.errorMessage = ""
+        this.errorMessage = "";
+
+        // Wysyłanie successMessage tylko gdy validation jest prawdziwe
         this.toastService.setSuccessMessage("You're signed up!");
-        if (!this.loginForm.valid) {
-          this.errorMessage = "Signup invalid";
-        }
       })
       .catch((error: { message: string; }) => {
         this.errorMessage = error.message;
         console.log('Signup error: ', error);
       });
   }
-
-
 
   // TOGGLES
   toggleSignupForm() {
@@ -150,10 +114,22 @@ export class LoginComponent {
   }
 
   // VALIDATORS
-  noSpaceAllowed(control: FormControl){
-    if(control.value != null && control.value.indexOf(" ") != -1){
-      return {noSpaceAllowed :true}
+  validation(email: string, password: string): boolean {
+    if (!email || !password) {
+      this.errorMessage = 'Please check the fields';
+      return false;
+    } else if (!this.isValidEmail(email)) {
+      this.errorMessage = 'Enter a valid email address';
+      return false;
+    } else if (password.length < 8) {
+      this.errorMessage = 'Password must have min 8 characters';
+      return false;
+    } else if (email.indexOf(" ") !== -1) {
+      this.errorMessage = 'No space allowed';
+      return false;
     }
-    return null
+    this.errorMessage = ''; // Wyczyść errorMessage, jeśli żaden z warunków nie jest spełniony
+    return true;
   }
+
 }
