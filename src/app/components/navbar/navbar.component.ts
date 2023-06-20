@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,18 +21,28 @@ import { Component, Input, OnInit } from '@angular/core';
   ])]
 })
 export class NavbarComponent implements OnInit {
-
   public isLoginComponentVisible: boolean = false;
+  userEmail: string | null | undefined;
+  loggedIn: boolean = false;
 
+  constructor(private afAuth: AngularFireAuth, private authService: AuthService) {
+    this.authService.loggedIn$.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+      if (loggedIn) {
+        this.isLoginComponentVisible = false;
+      }
+    });
+  }
 
-  public toggleLoginComponent(): void {
+  toggleLoginComponent(): void {
     this.isLoginComponentVisible = !this.isLoginComponentVisible;
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-
+  logout() {
+    this.authService.logout();
+    this.loggedIn = false;
   }
 
+  ngOnInit(): void {
+  }
 }

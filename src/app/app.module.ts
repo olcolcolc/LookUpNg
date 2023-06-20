@@ -23,6 +23,7 @@ import { SkyscannerService } from './services/skyscanner.service';
 import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireAuthModule} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.prod';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -51,7 +52,7 @@ import { environment } from 'src/environments/environment.prod';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [DestinationService, SummaryService, SkyscannerService],
+  providers: [DestinationService, SummaryService, SkyscannerService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
