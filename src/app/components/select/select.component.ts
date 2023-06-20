@@ -6,6 +6,7 @@ import {
   faUser,
   faSuitcase,
   faInfoCircle,
+  faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
@@ -27,6 +28,7 @@ export class SelectComponent implements OnInit {
   passengersIcon = faUser;
   luggageIcon = faSuitcase;
   infoIcon = faInfoCircle;
+
 
   //Passengers input
   selectedOption_adult: number | undefined;
@@ -170,7 +172,7 @@ export class SelectComponent implements OnInit {
       !this.selectedOption_children ||
       !this.selectedOption_babies
     ) {
-      this.toastService.setToastMessage('You have to choose all flight options');
+      this.toastService.setWarningMessage('You have to choose all flight options');
       console.log("toast send to service")
         } else {
       this.submit.emit();
