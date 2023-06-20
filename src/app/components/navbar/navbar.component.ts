@@ -1,11 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { map } from 'rxjs';
-import { Output, EventEmitter } from '@angular/core';
-
-
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,52 +21,28 @@ import { Output, EventEmitter } from '@angular/core';
   ])]
 })
 export class NavbarComponent implements OnInit {
-
   public isLoginComponentVisible: boolean = false;
-  // isLoggedIn$: any;
   userEmail: string | null | undefined;
   loggedIn: boolean = false;
 
-
-
-  public toggleLoginComponent(): void {
-    this.isLoginComponentVisible = !this.isLoginComponentVisible;
-
-  }
-
-  // @Output() loggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-
-
-  constructor(private afAuth: AngularFireAuth) {
-    // this.isLoggedIn$ = this.afAuth.authState.pipe(map((user: any) => !!user));
-
-
-
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userEmail = user.email;
-        this.loggedIn = true;
-        this.isLoginComponentVisible = false; // Ukryj komponent logowania, jeśli użytkownik jest zalogowany
-      } else {
-        this.userEmail = null;
-        this.loggedIn = false;
+  constructor(private afAuth: AngularFireAuth, private authService: AuthService) {
+    this.authService.loggedIn$.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+      if (loggedIn) {
+        this.isLoginComponentVisible = false;
       }
     });
   }
 
+  toggleLoginComponent(): void {
+    this.isLoginComponentVisible = !this.isLoginComponentVisible;
+  }
+
   logout() {
-    this.afAuth.signOut()
-      .then(() => {
-        console.log('Logout successful');
-      })
-      .catch((error) => {
-        console.log('Logout error: ', error);
-      });
+    this.authService.logout();
+    this.loggedIn = false;
   }
 
   ngOnInit(): void {
-
   }
-
 }

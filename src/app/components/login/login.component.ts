@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { EventEmitter } from '@angular/core';
-
-
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -46,7 +44,6 @@ export class LoginComponent {
   showSignupForm: boolean = false;
   showLoginForm: boolean = true;
 
-  loggedInEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   error = '';
   errorMessage: string = "";
 
@@ -55,10 +52,9 @@ export class LoginComponent {
     return emailRegex.test(email);
   }
 
-  constructor(private afAuth: AngularFireAuth) {}
+  constructor(private afAuth: AngularFireAuth, private authService: AuthService) {}
 
-
-  //LOGIN FUNCTION
+  // LOGIN FUNCTION
   login() {
     console.log("click login")
 
@@ -82,24 +78,19 @@ export class LoginComponent {
       return;
     }
 
-    this.afAuth
-      .signInWithEmailAndPassword(email, password)
+    this.authService.login(email, password)
       .then(() => {
+        this.errorMessage = ""
         console.log('Login successful');
-        this.loggedInEmitter.emit(true);
-        if (!this.loginForm.valid) {
-          this.errorMessage = "Please check the fields.";
-        }
       })
-      .catch((error) => {
+      .catch((error: { message: string; }) => {
         this.errorMessage = error.message;
-        this.loggedInEmitter.emit(false);
         console.log('Login error: ', error);
       });
   }
 
 
-  //SIGNUP FUNCTION
+  // SIGNUP FUNCTION
   signup() {
 
     const email = this.signupForm.value.email as string;
@@ -127,27 +118,23 @@ export class LoginComponent {
       return;
     }
 
-    this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+    this.authService.signup(email, password)
       .then(() => {
         console.log('Signup successful');
-        this.loggedInEmitter.emit(true);
+        this.errorMessage = ""
         if (!this.loginForm.valid) {
           this.errorMessage = "Signup invalid";
         }
       })
-      .catch((error) => {
+      .catch((error: { message: string; }) => {
         this.errorMessage = error.message;
-        this.loggedInEmitter.emit(false);
         console.log('Signup error: ', error);
       });
   }
 
 
 
-
-
-  //TOGGLES
+  // TOGGLES
   toggleSignupForm() {
     this.showSignupForm = !this.showSignupForm;
     this.showLoginForm = false;
@@ -158,13 +145,11 @@ export class LoginComponent {
     this.showSignupForm = false;
   }
 
-  //VALIDATORS
+  // VALIDATORS
   noSpaceAllowed(control: FormControl){
     if(control.value != null && control.value.indexOf(" ") != -1){
       return {noSpaceAllowed :true}
     }
     return null
   }
-
-
 }
