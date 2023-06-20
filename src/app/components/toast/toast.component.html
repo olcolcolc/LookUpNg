@@ -1,4 +1,6 @@
 <div class="toast" *ngIf="showToast">
-  <fa-icon [icon]="warningIcon"></fa-icon>
+  <div class="toast__icon" *ngIf="toastMessage === 'You have to choose all flight options'">
+    <fa-icon [icon]="warningIcon"></fa-icon>
+  </div>
   <div class="toast__message">{{ toastMessage }}</div>
 </div>

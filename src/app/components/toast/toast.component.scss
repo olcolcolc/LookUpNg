@@ -25,6 +25,16 @@
   &__message{
     margin-left: 10px;
   }
+
+  &:before{
+    width: 10px;
+    background-color: #12345c;
+    right: 190px;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
 }
 
 @keyframes slideInToastAnimation {
