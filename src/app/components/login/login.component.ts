@@ -56,7 +56,7 @@ export class LoginComponent {
     private toastService: ToastService) {}
 
   // LOGIN FUNCTION
-  login() {
+  async login() {
     console.log("click login")
 
     const email = this.loginForm.value.email as string;
@@ -66,16 +66,20 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(email, password)
-      .then(() => {
-        this.errorMessage = "";
-        this.toastService.setSuccessMessage(`${email} You're logged in!`);
-        console.log('Login successful');
-      })
-      .catch((error: { message: string; }) => {
+    try {
+      await this.authService.signInWithEmailAndPassword(email, password);
+      this.errorMessage = "";
+      this.toastService.setSuccessMessage(`${email} You're logged in!`);
+      console.log('Login successful');
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+        this.errorMessage = 'User not found';
+      } else if (error.code === 'auth/wrong-password') {
+        this.errorMessage = 'Wrong password';
+      } else {
         this.errorMessage = error.message;
-        console.log('Login error: ', error);
-      });
+      }
+    }
   }
 
 
