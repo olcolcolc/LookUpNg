@@ -83,7 +83,7 @@ export class LoginComponent {
     this.authService.login(email, password)
       .then(() => {
         this.errorMessage = ""
-        this.toastService.setSuccessMessage("You're logged in!");
+        this.toastService.setSuccessMessage(`${email} You're logged in!`);
         console.log('Login successful');
       })
       .catch((error: { message: string; }) => {
