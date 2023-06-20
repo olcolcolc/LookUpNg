@@ -1,3 +1,4 @@
-<div class="toast" *ngIf="toastMessage">
-  {{ toastMessage }}
+<div class="toast" *ngIf="showToast">
+  <fa-icon [icon]="warningIcon"></fa-icon>
+  <div class="toast__message">{{ toastMessage }}</div>
 </div>

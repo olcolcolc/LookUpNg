@@ -10,6 +10,7 @@ import {
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-select',
@@ -62,7 +63,8 @@ export class SelectComponent implements OnInit {
   @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private destinationService: DestinationService,
-    private summaryService: SummaryService) {}
+    private summaryService: SummaryService,
+    private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.destinationService.getDestinations().subscribe((destinations) => {
@@ -168,7 +170,8 @@ export class SelectComponent implements OnInit {
       !this.selectedOption_children ||
       !this.selectedOption_babies
     ) {
-      this.toastMessage.emit('You have to choose all flight options');
+      this.toastService.setToastMessage('You have to choose all flight options');
+      console.log("toast send to service")
         } else {
       this.submit.emit();
       this.summaryService.selectedDate = this.selectedDate; //send date to summary service
