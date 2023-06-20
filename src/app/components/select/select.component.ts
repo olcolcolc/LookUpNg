@@ -10,6 +10,7 @@ import {
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-select',
@@ -58,9 +59,12 @@ export class SelectComponent implements OnInit {
   isPassengerMenuOpen: boolean = false;
   isLuggageMenuOpen: boolean = false;
 
+  //toastMessage
+  @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private destinationService: DestinationService,
-    private summaryService: SummaryService) {}
+    private summaryService: SummaryService,
+    private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.destinationService.getDestinations().subscribe((destinations) => {
@@ -157,9 +161,21 @@ export class SelectComponent implements OnInit {
   @Output() submit: EventEmitter<void> = new EventEmitter<void>();
 
   onSubmit() {
-    this.submit.emit();
-
-    //send selectedDate to summaryService
-    this.summaryService.selectedDate = this.selectedDate;
+    if (
+      !this.selectedOrigin ||
+      !this.selectedDestination ||
+      !this.selectedDate ||
+      !this.selectedLuggageOption ||
+      !this.selectedOption_adult ||
+      !this.selectedOption_children ||
+      !this.selectedOption_babies
+    ) {
+      this.toastService.setToastMessage('You have to choose all flight options');
+      console.log("toast send to service")
+        } else {
+      this.submit.emit();
+      this.summaryService.selectedDate = this.selectedDate; //send date to summary service
+      // this.toastMessage = '';
+    }
   }
 }

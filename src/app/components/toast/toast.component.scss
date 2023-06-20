@@ -1,0 +1,51 @@
+::ng-deep.toast {
+  position: absolute;
+  top: 40em;
+
+  width: 200px !important;
+  height: 80px !important;
+
+  margin-left: 1px;
+  background-color: #fff;
+  color: #12345c;
+  padding:0 20px;
+  font-size: 16px;
+
+  box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  direction: ltr;
+  align-items: center;
+  font-family: "Quicksand",sans-serif !important;
+  animation: slideInToastAnimation 5s ease-in;
+
+  &__message{
+    margin-left: 10px;
+  }
+}
+
+@keyframes slideInToastAnimation {
+  0% {
+    right: 0px;
+  }
+  5% {
+    right: 15em;
+  }
+  95% {
+    right: 15em;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+
+
+@media only screen and (max-width: 480px) {
+  .toast {
+    margin-bottom: 0;
+  }
+}
