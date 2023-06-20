@@ -58,6 +58,8 @@ export class SelectComponent implements OnInit {
   isPassengerMenuOpen: boolean = false;
   isLuggageMenuOpen: boolean = false;
 
+  //toastMessage
+  @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private destinationService: DestinationService,
     private summaryService: SummaryService) {}
@@ -157,9 +159,20 @@ export class SelectComponent implements OnInit {
   @Output() submit: EventEmitter<void> = new EventEmitter<void>();
 
   onSubmit() {
-    this.submit.emit();
-
-    //send selectedDate to summaryService
-    this.summaryService.selectedDate = this.selectedDate;
+    if (
+      !this.selectedOrigin ||
+      !this.selectedDestination ||
+      !this.selectedDate ||
+      !this.selectedLuggageOption ||
+      !this.selectedOption_adult ||
+      !this.selectedOption_children ||
+      !this.selectedOption_babies
+    ) {
+      this.toastMessage.emit('You have to choose all flight options');
+        } else {
+      this.submit.emit();
+      this.summaryService.selectedDate = this.selectedDate; //send date to summary service
+      // this.toastMessage = '';
+    }
   }
 }

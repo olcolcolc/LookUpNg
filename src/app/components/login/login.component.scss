@@ -59,9 +59,11 @@
   border: 1px solid red;
 }
 
-.error-message {
+::ng-deep.error-message {
   color: red;
   font-size: 12px;
+  font-family: "Quicksand",sans-serif !important;
+
 }
 
 
