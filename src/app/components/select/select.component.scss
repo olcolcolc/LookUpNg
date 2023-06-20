@@ -181,6 +181,46 @@ fa-icon {
   margin-left: 10px;
 }
 
+::ng-deep.toast {
+  position: absolute;
+  top: 50em;
+  right: 8em;
+
+  width: 200px !important;
+  min-height: 64px !important;
+  max-height: 800px !important;
+
+  margin-left: 1px;
+  background-color: #fff;
+  color: #12345c;
+  padding-left: 20px;
+  box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  direction: ltr;
+  align-items: center;
+  font-family: "Quicksand",sans-serif !important;
+  animation: slideInToastAnimation 5s ease-in-out forwards;
+}
+
+@keyframes slideInToastAnimation {
+  0% {
+    right: -200px;
+  }
+  20% {
+    right: 20px;
+  }
+  80% {
+    right: 20px;
+  }
+  100% {
+    right: -200px;
+  }
+}
+
 
 @media (max-width: 720px) {
   .selectContainer{

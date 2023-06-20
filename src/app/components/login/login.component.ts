@@ -52,6 +52,13 @@ export class LoginComponent {
     return emailRegex.test(email);
   }
 
+  // noSpaceAllowed(control: FormControl){
+  //   if(control.value != null && control.value.indexOf(" ") != -1){
+  //     return {noSpaceAllowed :true}
+  //   }
+  //   return null
+  // }
+
   constructor(private afAuth: AngularFireAuth, private authService: AuthService) {}
 
   // LOGIN FUNCTION
@@ -145,11 +152,5 @@ export class LoginComponent {
     this.showSignupForm = false;
   }
 
-  // VALIDATORS
-  noSpaceAllowed(control: FormControl){
-    if(control.value != null && control.value.indexOf(" ") != -1){
-      return {noSpaceAllowed :true}
-    }
-    return null
-  }
+
 }

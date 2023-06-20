@@ -24,7 +24,6 @@ import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireAuthModule} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.prod';
 import { AuthService } from './services/auth.service';
-import { ToastComponent } from './components/toast/toast.component';
 
 
 
@@ -37,7 +36,6 @@ import { ToastComponent } from './components/toast/toast.component';
     SelectComponent,
     SummaryComponent,
     CurrencyConversionPipe,
-    ToastComponent,
   ],
   imports: [
     BrowserModule,
