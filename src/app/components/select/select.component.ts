@@ -47,6 +47,7 @@ export class SelectComponent implements OnInit {
   //Date input
   selectedDate: Date | null = null;
 
+
   //Luggage input
   luggageOptions: string[] = ['Carry-on', 'Carry-on & trolley'];
   selectedLuggageOption: string | null = null;
@@ -58,12 +59,10 @@ export class SelectComponent implements OnInit {
   isLuggageMenuOpen: boolean = false;
 
   //toastMessage
-  toastMessage: string = '';
+  @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(
-    private destinationService: DestinationService,
-    private summaryService: SummaryService
-  ) {}
+  constructor(private destinationService: DestinationService,
+    private summaryService: SummaryService) {}
 
   ngOnInit(): void {
     this.destinationService.getDestinations().subscribe((destinations) => {
@@ -91,7 +90,7 @@ export class SelectComponent implements OnInit {
 
     //send selectedOrigin to summaryService
     this.summaryService.selectedOrigin = destination.desc;
-  }
+    }
 
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
@@ -169,11 +168,11 @@ export class SelectComponent implements OnInit {
       !this.selectedOption_children ||
       !this.selectedOption_babies
     ) {
-      this.toastMessage = 'You have to choose all flight options';
-    } else {
+      this.toastMessage.emit('You have to choose all flight options');
+        } else {
       this.submit.emit();
       this.summaryService.selectedDate = this.selectedDate; //send date to summary service
-      this.toastMessage = '';
+      // this.toastMessage = '';
     }
   }
 }
