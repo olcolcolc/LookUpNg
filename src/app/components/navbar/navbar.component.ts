@@ -1,5 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs';
+import { Output, EventEmitter } from '@angular/core';
+
+
 
 
 @Component({
@@ -22,13 +27,47 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   public isLoginComponentVisible: boolean = false;
+  // isLoggedIn$: any;
+  userEmail: string | null | undefined;
+  loggedIn: boolean = false;
+
 
 
   public toggleLoginComponent(): void {
     this.isLoginComponentVisible = !this.isLoginComponentVisible;
+
   }
 
-  constructor() { }
+  // @Output() loggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+
+
+  constructor(private afAuth: AngularFireAuth) {
+    // this.isLoggedIn$ = this.afAuth.authState.pipe(map((user: any) => !!user));
+
+
+
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userEmail = user.email;
+        this.loggedIn = true;
+        this.isLoginComponentVisible = false; // Ukryj komponent logowania, jeśli użytkownik jest zalogowany
+      } else {
+        this.userEmail = null;
+        this.loggedIn = false;
+      }
+    });
+  }
+
+  logout() {
+    this.afAuth.signOut()
+      .then(() => {
+        console.log('Logout successful');
+      })
+      .catch((error) => {
+        console.log('Logout error: ', error);
+      });
+  }
 
   ngOnInit(): void {
 

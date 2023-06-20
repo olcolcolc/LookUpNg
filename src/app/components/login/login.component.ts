@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { EventEmitter } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-login',
@@ -43,7 +46,7 @@ export class LoginComponent {
   showSignupForm: boolean = false;
   showLoginForm: boolean = true;
 
-  loggedIn = false;
+  loggedInEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   error = '';
   errorMessage: string = "";
 
@@ -83,13 +86,14 @@ export class LoginComponent {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('Login successful');
+        this.loggedInEmitter.emit(true);
         if (!this.loginForm.valid) {
           this.errorMessage = "Please check the fields.";
         }
       })
       .catch((error) => {
         this.errorMessage = error.message;
-        this.loggedIn = false;
+        this.loggedInEmitter.emit(false);
         console.log('Login error: ', error);
       });
   }
@@ -127,23 +131,20 @@ export class LoginComponent {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('Signup successful');
+        this.loggedInEmitter.emit(true);
         if (!this.loginForm.valid) {
           this.errorMessage = "Signup invalid";
-          console.log('invalid');
         }
       })
       .catch((error) => {
         this.errorMessage = error.message;
+        this.loggedInEmitter.emit(false);
         console.log('Signup error: ', error);
       });
   }
 
 
 
-  logout() {
-    this.afAuth.signOut();
-    this.loggedIn = false;
-  }
 
 
   //TOGGLES
