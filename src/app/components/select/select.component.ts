@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   faHome,
   faCalendarAlt,
@@ -177,41 +177,10 @@ export class SelectComponent implements OnInit {
     }
   }
 
-  @HostListener('document:click', ['$event'])
-  onClick(event: MouseEvent) {
-    const targetElement = event.target as HTMLElement;
-
-    // Sprawdzenie czy kliknięcie nastąpiło poza submenu
-    if (
-      !this.isDescendantOfElement(targetElement, 'selectContainer__originBtn') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__origin__submenu') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__destinationBtn') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__destination__submenu') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__passengersBtn') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__passengers__submenu') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__luggageBtn') &&
-      !this.isDescendantOfElement(targetElement, 'selectContainer__luggage__submenu')
-    ) {
-      this.isOriginMenuOpen = false;
-      this.isDestinationMenuOpen = false;
-      this.isPassengerMenuOpen = false;
-      this.isLuggageMenuOpen = false;
-    }
+  closeMenus(): void {
+    this.isOriginMenuOpen = false;
+    this.isDestinationMenuOpen = false;
+    this.isPassengerMenuOpen = false;
+    this.isLuggageMenuOpen = false;
   }
-
-  // Sprawdzenie czy element lub jego przodkowie mają określony klasę
-  private isDescendantOfElement(element: HTMLElement, className: string): boolean {
-    let currentElement: HTMLElement | null = element;
-
-    while (currentElement !== null && currentElement.tagName !== 'HTML') {
-      if (currentElement.classList.contains(className)) {
-        return true;
-      }
-      currentElement = currentElement.parentElement;
-    }
-
-    return false;
-  }
-
-
 }

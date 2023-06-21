@@ -38,9 +38,6 @@ export class NavbarComponent implements OnInit {
     this.isLoginComponentVisible = !this.isLoginComponentVisible;
   }
 
-  clickedOutside():void{
-    this.isLoginComponentVisible = false;
-  }
   logout() {
     this.authService.logout();
     this.loggedIn = false;
