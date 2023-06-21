@@ -180,6 +180,29 @@ fa-icon {
 }
 
 
+//submenus animations
+.slide-enter {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.slide-leave {
+  max-height: 500px; /* Ustal maksymalną wysokość, aby animacja wyglądała płynnie */
+  overflow: hidden;
+  transition: max-height 0.3s ease-in;
+}
+
+.slide-enter-active {
+  max-height: 500px; /* Ustal maksymalną wysokość, aby animacja wyglądała płynnie */
+}
+
+.slide-leave-active {
+  max-height: 0;
+}
+
+
+
 @media (max-width: 720px) {
   .selectContainer{
     top: 20%;

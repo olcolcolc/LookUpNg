@@ -11,11 +11,33 @@ import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  animations: [
+    trigger('submenuAnimation', [
+      state('slide', style({
+        height: '*',
+        opacity: 1,
+      })),
+      transition(':enter', [
+        style({
+          height: '0',
+          opacity: 0,
+        }),
+        animate('0.3s ease-out')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-in', style({
+          height: '0',
+          opacity: 0,
+        }))
+      ])
+    ])
+  ]
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
