@@ -55,13 +55,20 @@
   }
 }
 
-.error {
-  border: 1px solid red;
+input.ng-invalid.ng-touched {
+  animation: blink 0.5s linear 2;
+  border: 3px solid  #ff4136;
+}
+
+@keyframes blink {
+  0% { border-color:  #ff4136;; }
+  50% { border-color: transparent; }
+  100% { border-color:  #ff4136;; }
 }
 
 ::ng-deep.error-message {
-  color: red;
-  font-size: 12px;
+  color:  #ff4136;
+  font-size: 14px;
   font-family: "Quicksand",sans-serif !important;
 }
 
