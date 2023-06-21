@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment.prod';
 import { AuthService } from './services/auth.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './services/toast.service';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 
 
@@ -39,6 +40,7 @@ import { ToastService } from './services/toast.service';
     SummaryComponent,
     CurrencyConversionPipe,
     ToastComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     BrowserModule,
