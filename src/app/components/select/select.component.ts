@@ -22,18 +22,24 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       state('slide', style({
         height: '*',
         opacity: 1,
+        transform: 'scaleY(1)',
+        transformOrigin: 'top'
       })),
       transition(':enter', [
         style({
           height: '0',
           opacity: 0,
+          transform: 'scaleY(0)',
+          transformOrigin: 'top'
         }),
-        animate('0.3s ease-out')
+        animate('0.3s ease')
       ]),
       transition(':leave', [
-        animate('0.3s ease-in', style({
+        animate('0.3s ease', style({
           height: '0',
           opacity: 0,
+          transform: 'scaleY(0)',
+          transformOrigin: 'top'
         }))
       ])
     ])

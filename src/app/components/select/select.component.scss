@@ -92,13 +92,13 @@
   // SUBMENUS POSITION
   &__origin__submenu {
     left: 4rem;
-    top: -7rem;
+    top: -9rem;
     width: 180px;
   }
 
   &__destination__submenu {
     left: 29rem;
-    top: -7rem;
+    top: -9rem;
     width: 180px;
   }
 
@@ -178,30 +178,6 @@ fa-icon {
   font-size: 20px;
   margin-left: 10px;
 }
-
-
-//submenus animations
-.slide-enter {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.slide-leave {
-  max-height: 500px; /* Ustal maksymalną wysokość, aby animacja wyglądała płynnie */
-  overflow: hidden;
-  transition: max-height 0.3s ease-in;
-}
-
-.slide-enter-active {
-  max-height: 500px; /* Ustal maksymalną wysokość, aby animacja wyglądała płynnie */
-}
-
-.slide-leave-active {
-  max-height: 0;
-}
-
-
 
 @media (max-width: 720px) {
   .selectContainer{
