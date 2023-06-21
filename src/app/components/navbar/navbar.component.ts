@@ -1,7 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../../services/auth.service';
+import { isDescendantOfElement } from '../../utils/isDescedantOfElement';
+
 
 @Component({
   selector: 'app-navbar',
@@ -42,6 +44,29 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.loggedIn = false;
   }
+
+
+//   @HostListener('document:click', ['$event'])
+// onClick(event: MouseEvent) {
+//   const targetElement = event.target as HTMLElement;
+
+//   // Sprawdzenie czy kliknięcie nastąpiło poza formularzem logowania
+//   if (!isDescendantOfElement(targetElement, 'loginComponent')) {
+//     this.isLoginComponentVisible = false;
+//   }
+// }
+
+  // @HostListener('document:click', ['$event'])
+  // onClick(event: MouseEvent) {
+  //   const targetElement = event.target as HTMLElement;
+
+  //   // Sprawdzenie czy kliknięcie nastąpiło poza formularzem logowania
+  //   if (!isDescendantOfElement(targetElement, 'loginComponent')) {
+  //     // Tutaj dodaj kod, który będzie wykonywany, gdy kliknięcie nastąpi poza formularzem logowania
+  //     // Na przykład, zamknięcie okna logowania
+  //     this.isLoginComponentVisible = false;
+  //   }
+  // }
 
   ngOnInit(): void {
   }
