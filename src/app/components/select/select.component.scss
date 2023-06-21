@@ -15,7 +15,7 @@
   &__ups,
   &__downs {
     display: flex;
-    flex-wrap: wrap; /* Dodane */
+    flex-wrap: wrap;
   }
 
   // buttons
@@ -26,7 +26,6 @@
   &__luggageBtn,
   &__passengers__submenu__acceptBtn,
   &__submit {
-    // flex: 1;
     border-radius: 10px 20px 10px 20px;
     width: 180px;
     height: 50px;
@@ -35,7 +34,6 @@
     display: flex;
     align-items: center;
     padding: 0 15px;
-    box-sizing: border-box;
     cursor: pointer;
     border: none;
     font-family: "Quicksand", sans-serif;
@@ -173,7 +171,7 @@ li {
 
 mat-datepicker-toggle {
   color: black;
-  width: 9px;
+  width: 180px;
 }
 
 fa-icon {

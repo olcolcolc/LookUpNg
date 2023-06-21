@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  //Login Form
   loginForm = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -26,6 +28,7 @@ export class LoginComponent {
     }),
   });
 
+  //Sign up Form
   signupForm = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -47,18 +50,11 @@ export class LoginComponent {
 
   errorMessage: string = "";
 
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
   constructor(private afAuth: AngularFireAuth, private authService: AuthService,
     private toastService: ToastService) {}
 
   // LOGIN FUNCTION
   async login() {
-    console.log("click login")
-
     const email = this.loginForm.value.email as string;
     const password = this.loginForm.value.password as string;
 
@@ -97,7 +93,7 @@ export class LoginComponent {
         console.log('Signup successful');
         this.errorMessage = "";
 
-        // Wysyłanie successMessage tylko gdy validation jest prawdziwe
+        // Sending successMessage only if validation is true
         this.toastService.setSuccessMessage("You're signed up!");
       })
       .catch((error: { message: string; }) => {
@@ -134,6 +130,11 @@ export class LoginComponent {
     }
     this.errorMessage = ''; // Wyczyść errorMessage, jeśli żaden z warunków nie jest spełniony
     return true;
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
 }
