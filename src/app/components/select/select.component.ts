@@ -203,7 +203,7 @@ export class SelectComponent implements OnInit {
     } else {
       this.authService.loggedIn$.subscribe((loggedIn: any) => {
         if (!loggedIn) {
-          this.toastService.setWarningMessage('Please log in');
+          this.toastService.setWarningMessage('You have to log in');
         } else {
           // Obsługa logiki po zalogowaniu
           this.submit.emit();
