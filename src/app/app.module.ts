@@ -27,6 +27,7 @@ import { AuthService } from './services/auth.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './services/toast.service';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -54,6 +55,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],

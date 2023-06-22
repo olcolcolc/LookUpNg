@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import {
   faHome,
   faCalendarAlt,
@@ -11,44 +11,58 @@ import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   animations: [
+    // Animations for submenu
     trigger('submenuAnimation', [
-      state('slide', style({
-        height: '*',
-        opacity: 1,
-        transform: 'scaleY(1)',
-        transformOrigin: 'top'
-      })),
+      state(
+        'slide',
+        style({
+          height: '*',
+          opacity: 1,
+          transform: 'scaleY(1)',
+          transformOrigin: 'top',
+        })
+      ),
       transition(':enter', [
         style({
           height: '0',
           opacity: 0,
           transform: 'scaleY(0)',
-          transformOrigin: 'top'
+          transformOrigin: 'top',
         }),
-        animate('0.3s ease')
+        animate('0.3s ease'),
       ]),
       transition(':leave', [
-        animate('0.3s ease', style({
-          height: '0',
-          opacity: 0,
-          transform: 'scaleY(0)',
-          transformOrigin: 'top'
-        }))
-      ])
-    ])
-  ]
+        animate(
+          '0.3s ease',
+          style({
+            height: '0',
+            opacity: 0,
+            transform: 'scaleY(0)',
+            transformOrigin: 'top',
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
 
-  //Icons
+  // Icons
   originIcon = faHome;
   dateIcon = faCalendarAlt;
   destinationIcon = faMapMarker;
@@ -56,7 +70,7 @@ export class SelectComponent implements OnInit {
   luggageIcon = faSuitcase;
   infoIcon = faInfoCircle;
 
-  //Passengers input
+  // Passengers input
   selectedOption_adult: number | undefined;
   selectedOption_children: number | undefined;
   selectedOption_babies: number | undefined;
@@ -64,36 +78,40 @@ export class SelectComponent implements OnInit {
   passengerCount: number = 0;
   passengersButtonText: string | undefined;
 
-  //Destination input
+  // Destination input
   destinations: Destination[] = [];
   selectedDestination: string | null = null;
   availableDestinations: Destination[] = [];
 
-  //Origin input
+  // Origin input
   selectedOrigin: string | null = null;
   availableOrigins: Destination[] = [];
 
-  //Date input
+  // Date input
   selectedDate: Date | null = null;
 
-  //Luggage input
+  // Luggage input
   luggageOptions: string[] = ['Carry-on', 'Carry-on & trolley'];
   selectedLuggageOption: string | null = null;
 
-  //Submenus booleans
+  // Submenus booleans
   isOriginMenuOpen: boolean = false;
   isDestinationMenuOpen: boolean = false;
   isPassengerMenuOpen: boolean = false;
   isLuggageMenuOpen: boolean = false;
 
-  //toastMessage
+  // toastMessage
   @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private destinationService: DestinationService,
+  constructor(
+    private destinationService: DestinationService,
     private summaryService: SummaryService,
-    private toastService: ToastService) {}
+    @Inject(ToastService) private toastService: ToastService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    // Fetch destinations on component initialization
     this.destinationService.getDestinations().subscribe((destinations) => {
       this.destinations = destinations;
       this.availableOrigins = [...this.destinations];
@@ -101,12 +119,14 @@ export class SelectComponent implements OnInit {
     });
   }
 
-  // On option click handlers
+  ///// On option click handlers
+
+  // Select Origin handler
   onOriginItemClick(destination: Destination): void {
     this.selectedOrigin = destination.desc;
     this.isOriginMenuOpen = false;
 
-    //do not show selected destionation in origin available options
+    // Do not show selected destionation in origin available options
     this.availableDestinations = this.destinations.filter(
       (dest) => dest.desc !== destination.desc
     );
@@ -117,15 +137,16 @@ export class SelectComponent implements OnInit {
       this.selectedDestination = null;
     }
 
-    //send selectedOrigin to summaryService
+    // Send selectedOrigin to summaryService
     this.summaryService.selectedOrigin = destination.desc;
-    }
+  }
 
+  // Select Destination handler
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
     this.isDestinationMenuOpen = false;
 
-    //do not show selected origin in destination available options
+    // Do not show selected origin in destination available options
     this.availableOrigins = this.destinations.filter(
       (dest) => dest.desc !== destination.desc
     );
@@ -133,18 +154,20 @@ export class SelectComponent implements OnInit {
       this.selectedOrigin = null;
     }
 
-    //send selectedDestination to summaryService
+    // Send selectedDestination to summaryService
     this.summaryService.selectedDestination = destination.desc;
   }
 
+  // Select Luggage handler
   onLuggageItemClick(item: string): void {
     this.selectedLuggageOption = item;
     this.isLuggageMenuOpen = false;
 
-    //send selectedLuggageOption to summaryService
+    // Send selectedLuggageOption to summaryService
     this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
   }
 
+  // Select Passengers handler
   onAcceptPassengerSelection(): void {
     const adultCount = this.selectedOption_adult
       ? parseInt(this.selectedOption_adult.toString(), 10)
@@ -156,16 +179,33 @@ export class SelectComponent implements OnInit {
       ? parseInt(this.selectedOption_babies.toString(), 10)
       : 0;
 
-    this.passengerCount = adultCount + childrenCount + babiesCount;
-    this.isPassengerMenuOpen = false;
+    // Check if babies or children without adult
+    if (adultCount === 0) {
+      if (childrenCount > 0) {
+        this.toastService.setWarningMessage('Children cannot fly alone');
+      } else if (babiesCount > 0) {
+        this.toastService.setWarningMessage('Babies cannot fly alone');
+      } else {
+        this.toastService.setWarningMessage(
+          'At least one adult passenger is required'
+        );
+      }
+      return;
+    }
 
-    //send passengerCount to summaryService
-    this.summaryService.selectedPassengerCount = this.passengerCount;
+    // Check if babies are less than adults. If not - send toast warning message
+    if (babiesCount > adultCount) {
+      this.toastService.setWarningMessage(
+        'One adult can have at most one infant.'
+      );
+      return;
+    }
   }
 
-  getSelectedPassengerCount(): number {
-    return this.passengerCount;
-  }
+  // Method to get the selected passenger count
+  // getSelectedPassengerCount(): number {
+  //   return this.passengerCount;
+  // }
 
   //Submenus handlers
   toggleOriginMenu(): void {
@@ -193,15 +233,21 @@ export class SelectComponent implements OnInit {
       !this.selectedDestination ||
       !this.selectedDate ||
       !this.selectedLuggageOption ||
-      !this.selectedOption_adult ||
-      !this.selectedOption_children ||
-      !this.selectedOption_babies
+      !this.selectedOption_adult
     ) {
-      this.toastService.setWarningMessage('You have to choose all flight options');
-      console.log("toast send to service")
+      this.toastService.setWarningMessage(
+        'You have to choose all flight options'
+      );
+    } else {
+      this.authService.loggedIn$.subscribe((loggedIn: any) => {
+        if (!loggedIn) {
+          this.toastService.setWarningMessage('You have to log in');
         } else {
-      this.submit.emit();
-      this.summaryService.selectedDate = this.selectedDate; //send date to summary service
+          // After logging in
+          this.submit.emit();
+          this.summaryService.selectedDate = this.selectedDate;
+        }
+      });
     }
   }
 
