@@ -11,7 +11,13 @@ import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -21,31 +27,37 @@ import { AuthService } from 'src/app/services/auth.service';
   animations: [
     // Animations for submenu
     trigger('submenuAnimation', [
-      state('slide', style({
-        height: '*',
-        opacity: 1,
-        transform: 'scaleY(1)',
-        transformOrigin: 'top'
-      })),
+      state(
+        'slide',
+        style({
+          height: '*',
+          opacity: 1,
+          transform: 'scaleY(1)',
+          transformOrigin: 'top',
+        })
+      ),
       transition(':enter', [
         style({
           height: '0',
           opacity: 0,
           transform: 'scaleY(0)',
-          transformOrigin: 'top'
+          transformOrigin: 'top',
         }),
-        animate('0.3s ease')
+        animate('0.3s ease'),
       ]),
       transition(':leave', [
-        animate('0.3s ease', style({
-          height: '0',
-          opacity: 0,
-          transform: 'scaleY(0)',
-          transformOrigin: 'top'
-        }))
-      ])
-    ])
-  ]
+        animate(
+          '0.3s ease',
+          style({
+            height: '0',
+            opacity: 0,
+            transform: 'scaleY(0)',
+            transformOrigin: 'top',
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
@@ -91,19 +103,21 @@ export class SelectComponent implements OnInit {
   // toastMessage
   @Output() toastMessage: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private destinationService: DestinationService,
+  constructor(
+    private destinationService: DestinationService,
     private summaryService: SummaryService,
     @Inject(ToastService) private toastService: ToastService,
-    private authService: AuthService) {}
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {     // Fetch destinations on component initialization
+  ngOnInit(): void {
+    // Fetch destinations on component initialization
     this.destinationService.getDestinations().subscribe((destinations) => {
       this.destinations = destinations;
       this.availableOrigins = [...this.destinations];
       this.availableDestinations = [...this.destinations];
     });
   }
-
 
   ///// On option click handlers
 
@@ -125,8 +139,7 @@ export class SelectComponent implements OnInit {
 
     // Send selectedOrigin to summaryService
     this.summaryService.selectedOrigin = destination.desc;
-    }
-
+  }
 
   // Select Destination handler
   onDestinationItemClick(destination: Destination): void {
@@ -145,7 +158,6 @@ export class SelectComponent implements OnInit {
     this.summaryService.selectedDestination = destination.desc;
   }
 
-
   // Select Luggage handler
   onLuggageItemClick(item: string): void {
     this.selectedLuggageOption = item;
@@ -154,7 +166,6 @@ export class SelectComponent implements OnInit {
     // Send selectedLuggageOption to summaryService
     this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
   }
-
 
   // Select Passengers handler
   onAcceptPassengerSelection(): void {
@@ -168,21 +179,30 @@ export class SelectComponent implements OnInit {
       ? parseInt(this.selectedOption_babies.toString(), 10)
       : 0;
 
-      // Check if babies are less than adults. If not - send toast warning message
-  if (babiesCount <= adultCount) {
-    // Send passengerCount to summaryService
-    this.summaryService.selectedPassengerCount = this.passengerCount;
-    this.passengerCount = adultCount + childrenCount + babiesCount;
-    this.isPassengerMenuOpen = false;
-  } else {
-    this.toastService.setWarningMessage(
-      'One adult can have at most one infant.'
-    );
-    return;
-  }
-}
+    // Check if babies or children without adult
+    if (adultCount === 0) {
+      if (childrenCount > 0) {
+        this.toastService.setWarningMessage('Children cannot fly alone');
+      } else if (babiesCount > 0) {
+        this.toastService.setWarningMessage('Babies cannot fly alone');
+      } else {
+        this.toastService.setWarningMessage(
+          'At least one adult passenger is required'
+        );
+      }
+      return;
+    }
 
-// Method to get the selected passenger count
+    // Check if babies are less than adults. If not - send toast warning message
+    if (babiesCount > adultCount) {
+      this.toastService.setWarningMessage(
+        'One adult can have at most one infant.'
+      );
+      return;
+    }
+  }
+
+  // Method to get the selected passenger count
   // getSelectedPassengerCount(): number {
   //   return this.passengerCount;
   // }
@@ -215,7 +235,9 @@ export class SelectComponent implements OnInit {
       !this.selectedLuggageOption ||
       !this.selectedOption_adult
     ) {
-      this.toastService.setWarningMessage('You have to choose all flight options');
+      this.toastService.setWarningMessage(
+        'You have to choose all flight options'
+      );
     } else {
       this.authService.loggedIn$.subscribe((loggedIn: any) => {
         if (!loggedIn) {
