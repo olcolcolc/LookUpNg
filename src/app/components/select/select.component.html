@@ -1,3 +1,4 @@
+<div class="selectWrapper" appClickOutside (clickedOutside)="closeMenus()">
 <div class="selectContainer">
   <div class="selectContainer__ups">
     <!-- ORIGIN -->
@@ -7,7 +8,7 @@
         {{ selectedOrigin ? selectedOrigin : 'Origin' }}
       </button>
 
-      <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen">
+      <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen" [@submenuAnimation]="'slide'">
         <ul *ngIf="destinations" >
           <li class="option" *ngFor="let destination of availableOrigins" (click)="onOriginItemClick(destination)">
             {{ destination.desc }}
@@ -18,7 +19,7 @@
 
     <!-- DATE BUTTON AND SUBMENU -->
     <div class="selectContainer__dateBtn">
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" [@submenuAnimation]="'slide'">
         <mat-label>Date</mat-label>
         <input
           matInput
@@ -46,6 +47,7 @@
       <div
         class="selectContainer__destination__submenu"
         *ngIf="isDestinationMenuOpen"
+        [@submenuAnimation]="'slide'"
       >
         <ul *ngIf="destinations">
           <li class="option" *ngFor="let destination of availableDestinations" (click)="onDestinationItemClick(destination)">
@@ -64,7 +66,7 @@
         {{ passengerCount ? passengerCount : "Passengers" }}
       </button>
 
-      <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen">
+      <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen" [@submenuAnimation]="'slide'">
 
         <div class="selectContainer__passengers__submenu_inputs">
 
@@ -143,7 +145,7 @@
         <fa-icon [icon]="luggageIcon"></fa-icon>
         {{selectedLuggageOption ? selectedLuggageOption : "Luggage"}}
       </button>
-      <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen">
+      <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen" [@submenuAnimation]="'slide'">
         <ul>
           <li class="option" *ngFor="let luggageOption of luggageOptions" (click)="onLuggageItemClick(luggageOption)">
             {{luggageOption}}</li>

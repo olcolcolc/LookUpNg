@@ -1,19 +1,31 @@
 <div class="login__container">
+  <!-- Login Form -->
   <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showSignupForm">
-    <input type="text" formControlName="email" placeholder="E-mail" [class.error]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
-    <input type="text" formControlName="password" placeholder="Password" [class.error]="loginForm.controls.password.invalid && loginForm.controls.password.touched">
-
+    <input type="text" formControlName="email" placeholder="E-mail">
+    <!-- Input field for email with error class applied if it is invalid and has been touched -->
+    <input type="text" formControlName="password" placeholder="Password">
+    <!-- Input field for password with error class applied if it is invalid and has been touched -->
 
     <button class="login__container__button" (click)="login()">Login</button>
+    <!-- Login button triggering the login() method on click -->
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Don't Have an Account? Sign in</button>
+    <!-- Button to toggle display of signup form on click -->
   </form>
 
+  <!-- Signup Form -->
   <form [formGroup]="signupForm" (ngSubmit)="signup()" *ngIf="showSignupForm">
-    <input type="text" formControlName="email" placeholder="E-mail" [class.error]="signupForm.controls.email.invalid && signupForm.controls.email.touched">
-    <input type="text" formControlName="password" placeholder="Password" [class.error]="signupForm.controls.password.invalid && signupForm.controls.password.touched">
+    <input type="text" formControlName="email" placeholder="E-mail" [class.error-style]="signupForm.controls.email.invalid && signupForm.controls.email.touched">
+    <!-- Input field for email with error class applied if it is invalid and has been touched -->
+    <input type="text" formControlName="password" placeholder="Password" [class.error-style]="signupForm.controls.password.invalid && signupForm.controls.password.touched">
+    <!-- Input field for password with error class applied if it is invalid and has been touched -->
 
     <button class="login__container__button" (click)="signup()">Sign Up</button>
+    <!-- Signup button triggering the signup() method on click -->
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
+    <!-- Button to toggle display of login form on click -->
   </form>
+
+  <!-- Error Message -->
   <div class="error-message">{{errorMessage}}</div>
+  <!-- Display the error message if there is any -->
 </div>

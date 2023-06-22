@@ -6,17 +6,44 @@ import {
   faUser,
   faSuitcase,
   faInfoCircle,
-  faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  animations: [
+    trigger('submenuAnimation', [
+      state('slide', style({
+        height: '*',
+        opacity: 1,
+        transform: 'scaleY(1)',
+        transformOrigin: 'top'
+      })),
+      transition(':enter', [
+        style({
+          height: '0',
+          opacity: 0,
+          transform: 'scaleY(0)',
+          transformOrigin: 'top'
+        }),
+        animate('0.3s ease')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease', style({
+          height: '0',
+          opacity: 0,
+          transform: 'scaleY(0)',
+          transformOrigin: 'top'
+        }))
+      ])
+    ])
+  ]
 })
 export class SelectComponent implements OnInit {
   minDate: Date = new Date();
@@ -28,7 +55,6 @@ export class SelectComponent implements OnInit {
   passengersIcon = faUser;
   luggageIcon = faSuitcase;
   infoIcon = faInfoCircle;
-
 
   //Passengers input
   selectedOption_adult: number | undefined;
@@ -49,7 +75,6 @@ export class SelectComponent implements OnInit {
 
   //Date input
   selectedDate: Date | null = null;
-
 
   //Luggage input
   luggageOptions: string[] = ['Carry-on', 'Carry-on & trolley'];
@@ -177,7 +202,13 @@ export class SelectComponent implements OnInit {
         } else {
       this.submit.emit();
       this.summaryService.selectedDate = this.selectedDate; //send date to summary service
-      // this.toastMessage = '';
     }
+  }
+
+  closeMenus(): void {
+    this.isOriginMenuOpen = false;
+    this.isDestinationMenuOpen = false;
+    this.isPassengerMenuOpen = false;
+    this.isLuggageMenuOpen = false;
   }
 }

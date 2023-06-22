@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  // Login Form
   loginForm = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -26,6 +28,7 @@ export class LoginComponent {
     }),
   });
 
+  // Sign up Form
   signupForm = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -42,23 +45,22 @@ export class LoginComponent {
     }),
   });
 
+  // Flags to control the visibility of sign-up/login forms
   showSignupForm: boolean = false;
   showLoginForm: boolean = true;
 
-  errorMessage: string = "";
 
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+  // Variable to store and display error messages
+  errorMessage: string = "";
 
   constructor(private afAuth: AngularFireAuth, private authService: AuthService,
     private toastService: ToastService) {}
 
+
+
   // LOGIN FUNCTION
   async login() {
-    console.log("click login")
-
+    // Get the email and password from the login form
     const email = this.loginForm.value.email as string;
     const password = this.loginForm.value.password as string;
 
@@ -89,19 +91,19 @@ export class LoginComponent {
     const password = this.signupForm.value.password as string;
 
     if (!this.validation(email, password)) {
-      return;
+      return; // Return nothing if the input validation fails
     }
 
     this.authService.signup(email, password)
       .then(() => {
         console.log('Signup successful');
-        this.errorMessage = "";
+        this.errorMessage = ""; // Clear the error message
 
-        // Wysyłanie successMessage tylko gdy validation jest prawdziwe
+        // Sending successMessage only if validation is true
         this.toastService.setSuccessMessage("You're signed up!");
       })
       .catch((error: { message: string; }) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.message; // Set the error message to the specific error message
         console.log('Signup error: ', error);
       });
   }
@@ -132,8 +134,13 @@ export class LoginComponent {
       this.errorMessage = 'No space allowed';
       return false;
     }
-    this.errorMessage = ''; // Wyczyść errorMessage, jeśli żaden z warunków nie jest spełniony
+    this.errorMessage = ''; /// Clear the error message if none of the conditions are met
     return true;
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for email validation
+    return emailRegex.test(email); // Check if the email matches the regular expression
   }
 
 }
