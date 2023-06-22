@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import {
   faHome,
   faCalendarAlt,
@@ -12,6 +12,7 @@ import { Destination } from 'src/app/interfaces/destination';
 import { SummaryService } from 'src/app/services/summary.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-select',
@@ -91,7 +92,8 @@ export class SelectComponent implements OnInit {
 
   constructor(private destinationService: DestinationService,
     private summaryService: SummaryService,
-    private toastService: ToastService) {}
+    @Inject(ToastService) private toastService: ToastService,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.destinationService.getDestinations().subscribe((destinations) => {
@@ -193,15 +195,21 @@ export class SelectComponent implements OnInit {
       !this.selectedDestination ||
       !this.selectedDate ||
       !this.selectedLuggageOption ||
-      !this.selectedOption_adult ||
-      !this.selectedOption_children ||
-      !this.selectedOption_babies
+      !this.selectedOption_adult
+      // !this.selectedOption_children ||
+      // !this.selectedOption_babies
     ) {
       this.toastService.setWarningMessage('You have to choose all flight options');
-      console.log("toast send to service")
+    } else {
+      this.authService.loggedIn$.subscribe((loggedIn: any) => {
+        if (!loggedIn) {
+          this.toastService.setWarningMessage('Please log in');
         } else {
-      this.submit.emit();
-      this.summaryService.selectedDate = this.selectedDate; //send date to summary service
+          // Obsługa logiki po zalogowaniu
+          this.submit.emit();
+          this.summaryService.selectedDate = this.selectedDate;
+        }
+      });
     }
   }
 
