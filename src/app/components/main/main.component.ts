@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
 
   showSummary: boolean = true;
+
 
   onSubmit() {
     this.showSummary = false;

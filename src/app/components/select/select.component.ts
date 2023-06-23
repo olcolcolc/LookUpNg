@@ -19,6 +19,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
+import { SkyscannerService } from 'src/app/services/skyscanner.service';
 
 @Component({
   selector: 'app-select',
@@ -107,7 +108,8 @@ export class SelectComponent implements OnInit {
     private destinationService: DestinationService,
     private summaryService: SummaryService,
     @Inject(ToastService) private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private skyscannerService: SkyscannerService
   ) {}
 
   ngOnInit(): void {
@@ -139,6 +141,9 @@ export class SelectComponent implements OnInit {
 
     // Send selectedOrigin to summaryService
     this.summaryService.selectedOrigin = destination.desc;
+
+    // Send selectedOrigin to skyscannerService
+    this.summaryService.selectedOriginCode = destination.code;
   }
 
   // Select Destination handler
@@ -156,6 +161,9 @@ export class SelectComponent implements OnInit {
 
     // Send selectedDestination to summaryService
     this.summaryService.selectedDestination = destination.desc;
+
+    // Send selectedDestination to skyscannerService
+    this.summaryService.selectedDestinationCode = destination.code;
   }
 
   // Select Luggage handler
@@ -165,6 +173,9 @@ export class SelectComponent implements OnInit {
 
     // Send selectedLuggageOption to summaryService
     this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
+
+    // Send selectedDestination to skyscannerService
+    this.skyscannerService.selectedLuggageOption = this.selectedLuggageOption;
   }
 
   // Select Passengers handler
@@ -208,14 +219,17 @@ export class SelectComponent implements OnInit {
 
     // Send passengerCount to summaryService
     this.summaryService.selectedPassengerCount = this.passengerCount;
+
+    // Send selectedDestination to skyscannerService
+    this.skyscannerService.selectedPassengerCount = this.passengerCount;
+
     this.isPassengerMenuOpen = false;
 
-      // Method to get the selected passenger count
-  // getSelectedPassengerCount(): number {
-  //   return this.passengerCount;
-  // }
+    // Method to get the selected passenger count
+    // getSelectedPassengerCount(): number {
+    //   return this.passengerCount;
+    // }
   }
-
 
   //Submenus handlers
   toggleOriginMenu(): void {
@@ -249,13 +263,14 @@ export class SelectComponent implements OnInit {
         'You have to choose all flight options'
       );
     } else {
-      this.authService.loggedIn$.subscribe((loggedIn: any) => {
+      this.authService.loggedIn$.subscribe(async (loggedIn: any) => {
         if (!loggedIn) {
           this.toastService.setWarningMessage('You have to log in');
         } else {
           // After logging in
           this.submit.emit();
           this.summaryService.selectedDate = this.selectedDate;
+          this.skyscannerService.selectedDate = this.selectedDate;
         }
       });
     }

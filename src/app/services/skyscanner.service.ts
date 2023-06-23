@@ -7,10 +7,28 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root'
 })
 export class SkyscannerService {
+
+  selectedOrigin: string | null = null;
+  selectedDestination: string | null = null;
+  selectedDate: Date | null = null;
+  selectedPassengerCount: number = 0;
+  selectedLuggageOption: string | null = null;
+
+  // setSelectedDate(date: Date) {
+  //   this.selectedDate = date;
+  // }
+
   apiKeySkyscanner: string = environment.apiKeySkyscanner;
 
 
-  async searchFlights(): Promise<any> {
+
+
+  async fetchCheapestPrice(): Promise<any> {
+
+    let selectedYear: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
+    let selectedMonth: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
+    let selectedDay: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
+
     const options = {
       method: 'POST',
       url: 'https://skyscanner-api.p.rapidapi.com/v3/flights/live/search/create',
@@ -21,22 +39,22 @@ export class SkyscannerService {
       },
       data: {
         query: {
-          market: 'UK',
-          locale: 'en-GB',
-          currency: 'EUR',
+          market: 'PL',
+          locale: 'pl-PL',
+          currency: 'PLN',
           queryLegs: [
             {
-              originPlaceId: { iata: 'LHR' },
-              destinationPlaceId: { iata: 'DXB' },
+              originPlaceId: { iata: this.selectedOrigin },
+              destinationPlaceId: { iata: this.selectedDestination },
               date: {
-                year: 2023,
-                month: 9,
-                day: 20
+                year: selectedYear,
+                month: selectedMonth,
+                day: selectedDay
               }
             }
           ],
           cabinClass: 'CABIN_CLASS_ECONOMY',
-          adults: 2,
+          adults: this.selectedPassengerCount,
           childrenAges: [3, 9]
         }
       }
@@ -44,7 +62,14 @@ export class SkyscannerService {
 
     try {
       const response = await axios.request(options);
-      return response.data;
+
+      function extractCheapestPrice(data: any): number {
+        const itineraryId = data.content.sortingOptions.cheapest[0].itineraryId;
+        const itineraryObject = data.content.results.itineraries[itineraryId];
+        return parseInt(itineraryObject.pricingOptions[0].price.amount)
+      }
+
+      return extractCheapestPrice(response);
     } catch (error) {
       console.error(error);
       throw error;

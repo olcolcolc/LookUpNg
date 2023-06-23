@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
-import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud, faPlane } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../environments/environment.prod';
+import { SkyscannerService } from 'src/app/services/skyscanner.service';
+import axios from 'axios';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-summary',
@@ -10,7 +13,6 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class SummaryComponent implements OnInit {
   weatherData: any;
-  apiKeyWeather: string = environment.apiKeyWeather;
 
   selectedOrigin: string | null = null;
   selectedDestination: string | null = null;
@@ -18,7 +20,7 @@ export class SummaryComponent implements OnInit {
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
 
-  ticketPrice: number = 530;
+  ticketPrice: number = 0;
   selectedCurrency: string = 'PLN';
   currencySymbol: string = 'zł';
 
@@ -31,8 +33,11 @@ export class SummaryComponent implements OnInit {
   sunIcon = faSun;
   moonIcon = faMoon;
   cloudIcon = faCloud;
+  planeIcon = faPlane;
 
-  constructor(private summaryService: SummaryService) {}
+  loadingAnimation: boolean = false;
+
+  constructor(private summaryService: SummaryService, private skyscannerService: SkyscannerService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
@@ -47,7 +52,9 @@ export class SummaryComponent implements OnInit {
     if (this.selectedDestination !== null) {
       this.getWeatherData(this.selectedDestination);
     }
+    this.fetchCheapestPrice()
   }
+
 
   formatSelectedDate(): string {
     if (this.selectedDate) {
@@ -66,17 +73,7 @@ export class SummaryComponent implements OnInit {
     this.currencySymbol = symbol;
   }
 
-  getConvertedPrice(): number {
-    const exchangeRates: { [key: string]: number } = {
-      PLN: 1,
-      EUR: 0.23,
-      USD: 0.27,
-    };
-    if (exchangeRates[this.selectedCurrency]) {
-      return this.ticketPrice * exchangeRates[this.selectedCurrency];
-    }
-    return this.ticketPrice;
-  }
+
 
   setSelectedDate(date: Date) {
     this.selectedDate = date;
@@ -84,7 +81,7 @@ export class SummaryComponent implements OnInit {
 
   getWeatherData(selectedDestination: string): void {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${this.apiKeyWeather}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${environment.apiKeyWeather}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -99,10 +96,84 @@ export class SummaryComponent implements OnInit {
     let currentDate = new Date();
     this.weatherData.isDay = currentDate.getTime() < sunsetTime.getTime();
     this.weatherData.temp_celcius = (this.weatherData.main.temp - 273.15).toFixed(0);
-    this.weatherData.temp_min = (this.weatherData.main.temp_min - 273.15).toFixed(0);
-    this.weatherData.temp_max = (this.weatherData.main.temp_max - 273.15).toFixed(0);
-    this.weatherData.temp_feels_like = (this.weatherData.main.feels_like - 273.15).toFixed(0);
   }
 
 
+// Convert flight price
+  getConvertedPrice(): number {
+    const exchangeRates: { [key: string]: number } = {
+      PLN: 1,
+      EUR: 0.23,
+      USD: 0.27,
+    };
+    if (exchangeRates[this.selectedCurrency]) {
+      return this.ticketPrice * exchangeRates[this.selectedCurrency];
+    }
+    return this.ticketPrice;
+  }
+
+
+    //Search for cheapest flight ticket
+
+  async fetchCheapestPrice() {
+
+    this.loadingAnimation = true;
+
+    let selectedYear: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
+    let selectedMonth: number = this.selectedDate ? (this.selectedDate?.getMonth()+1) : 0;
+    let selectedDay: number = this.selectedDate ? (this.selectedDate?.getUTCDate()+1) : 0;
+
+    const options = {
+      method: 'POST',
+      url: 'https://skyscanner-api.p.rapidapi.com/v3e/flights/live/search/synced',
+      headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': `${environment.apiKeySkyscanner}`,
+        'X-RapidAPI-Host': 'skyscanner-api.p.rapidapi.com'
+      },
+      data: {
+        query: {
+          market: 'PL',
+          locale: 'pl-PL',
+          currency: 'PLN',
+          queryLegs: [
+            {
+              originPlaceId: { iata: this.summaryService.selectedOriginCode },
+              destinationPlaceId: { iata: this.summaryService.selectedDestinationCode },
+              date: {
+                year: selectedYear,
+                month: selectedMonth,
+                day: selectedDay
+              }
+            }
+          ],
+          cabinClass: 'CABIN_CLASS_ECONOMY',
+          adults: this.selectedPassengerCount,
+          childrenAges: [3, 9]
+        }
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+
+      function extractCheapestPrice(response: any): number {
+        const itineraryId = response.data.content.sortingOptions.cheapest[0].itineraryId;
+        const itineraryObject = response.data.content.results.itineraries[itineraryId];
+        return parseInt(itineraryObject.pricingOptions[0].price.amount)
+      }
+
+      this.ticketPrice = extractCheapestPrice(response);
+      this.loadingAnimation = false;
+
+    } catch (error) {
+      this.loadingAnimation = false;
+      console.error(error);
+      this.toastService.setWarningMessage("Fetching flights failed")
+      throw error;
+    }
+  }
 }
+
+
+
