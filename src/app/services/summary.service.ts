@@ -9,6 +9,7 @@ export class SummaryService {
   selectedDate: Date | null = null;
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
+  cheapestTicketOption: number | undefined;
 
   setSelectedDate(date: Date) {
     this.selectedDate = date;

@@ -265,7 +265,7 @@ export class SelectComponent implements OnInit {
         'You have to choose all flight options'
       );
     } else {
-      this.authService.loggedIn$.subscribe((loggedIn: any) => {
+      this.authService.loggedIn$.subscribe(async (loggedIn: any) => {
         if (!loggedIn) {
           this.toastService.setWarningMessage('You have to log in');
         } else {
@@ -273,6 +273,7 @@ export class SelectComponent implements OnInit {
           this.submit.emit();
           this.summaryService.selectedDate = this.selectedDate;
           this.skyscannerService.selectedDate = this.selectedDate;
+          // this.summaryService.cheapestTicketOption = await this.skyscannerService.fetchCheapestPrice();
         }
       });
     }
