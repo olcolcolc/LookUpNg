@@ -151,9 +151,6 @@
 }
 
 
-fa-icon {
-  margin-right: 10px;
-}
 
 ul {
   list-style-type: none;
@@ -180,4 +177,44 @@ mat-datepicker-toggle {
 fa-icon {
   font-size: 20px;
   margin-left: 10px;
+  margin-right: 10px;
 }
+
+@media (max-width: 720px) {
+  .selectContainer{
+    top: 20%;
+    border-radius: 0;
+
+  &__ups{
+    flex-direction: column;
+  }
+  &__downs {
+    flex-direction: column;
+  }
+
+  &__originBtn,
+  &__dateBtn,
+  &__destinationBtn,
+  &__passengersBtn,
+  &__luggageBtn,
+  &__passengers__submenu__acceptBtn,
+  &__submit {
+    width: 300px;
+  }
+
+  &__origin__submenu,
+  &__date__submenu,
+  &__destination__submenu,
+  &__passengers__submenu,
+  &__luggage__submenu {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin: auto 0;
+    top: 40px;
+    left: 0;
+  }
+}
+}
+
+

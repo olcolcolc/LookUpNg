@@ -68,6 +68,15 @@ export class SelectComponent implements OnInit {
       this.availableOrigins = [...this.destinations];
       this.availableDestinations = [...this.destinations];
     });
+
+    /////TEST VARIABLES
+    // Ustawianie testowych wartości
+    // this.selectedDestination = 'Warsaw';
+    // this.selectedOrigin = 'London';
+    // this.selectedDate = new Date();
+    // this.selectedLuggageOption = 'Carry-on';
+    // this.selectedOption_adult = 2;
+    // this.selectedOption_children = 1;
   }
 
   // On option click handlers
@@ -132,6 +141,25 @@ export class SelectComponent implements OnInit {
     this.summaryService.selectedPassengerCount = this.passengerCount;
   }
 
+    // Check if babies are less than adults. If not - send toast warning message
+    if (babiesCount > adultCount) {
+      this.toastService.setWarningMessage(
+        'One adult can have at most one infant.'
+      );
+      return;
+    }
+
+    this.selectedOption_adult = adultCount;
+    this.selectedOption_children = childrenCount;
+    this.selectedOption_babies = babiesCount;
+    this.passengerCount = adultCount + childrenCount + babiesCount;
+
+    // Send passengerCount to summaryService
+    this.summaryService.selectedPassengerCount = this.passengerCount;
+    this.isPassengerMenuOpen = false;
+  }
+
+  // Method to get the selected passenger count
   getSelectedPassengerCount(): number {
     return this.passengerCount;
   }
