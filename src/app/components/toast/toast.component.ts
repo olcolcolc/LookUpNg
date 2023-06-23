@@ -17,6 +17,7 @@ export class ToastComponent implements OnInit {
   isMessageWarning: boolean = false;
   isMessageSuccess: boolean = false;
 
+  // Icons
   warningIcon = faExclamationCircle;
   successIcon = faCheckCircle;
 

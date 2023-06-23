@@ -2,19 +2,26 @@
   <h1>Summary</h1>
   <div class="summary__ticket">
     <div class="summary__ticket__left">
+      <!-- Origin -->
       <p>From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></p>
+
+      <!-- Destination -->
       <p>
         To: {{ selectedDestination }}
         <fa-icon [icon]="destinationIcon"></fa-icon>
       </p>
+
+      <!-- Passengers -->
       <p>
         Passengers: {{ selectedPassengerCount }}
         <fa-icon [icon]="passengersIcon"></fa-icon>
       </p>
+
+      <!-- Ticket price -->
       <div class="summary__price">
         <p>Price in:</p>
 
-
+        <!-- Currency buttons -->
         <div class="summary__price__currencies">
           <button
             class="summary__price__currencyBtn"
@@ -37,22 +44,31 @@
           </button>
         </div>
       </div>
+
+      <!-- Loading animation -->
       <div *ngIf="loadingAnimation" class="loadingAnimation">
     <fa-icon [icon]="planeIcon"></fa-icon>
         </div>
+
+        <!-- Price amount -->
       <p class="summary__price__value" *ngIf="!loadingAnimation">
         {{ getConvertedPrice() | number : "1.2-2" }} {{ currencySymbol }}
       </p>
     </div>
+
+    <!-- Luggage -->
     <div class="summary__ticket__right">
       <p>
         Luggage: {{ selectedLuggageOption }}
         <fa-icon [icon]="luggageIcon"></fa-icon>
       </p>
 
+      <!-- Date -->
       <p>
         Date: {{ formatSelectedDate() }} <fa-icon [icon]="dateIcon"></fa-icon>
       </p>
+
+      <!-- Weather widget -->
       <div class="weatherDiv">
         <div *ngIf="weatherData.isDay" class="weatherDiv__row">
           <fa-icon class="sun" [icon]="sunIcon"></fa-icon>
@@ -64,7 +80,7 @@
           <fa-icon class="cloud" [icon]="cloudIcon"></fa-icon>
         </div>
         <div class="weatherDiv__row" style="font-size: 32px; margin-top: 5px">
-          {{ weatherData.temp_celcius }}°
+          {{ weatherData.temp_celcius }}°C
         </div>
         <div class="weatherDiv__row" style="font-size: 25px; margin-top: 10px">
           {{ selectedDestination }}

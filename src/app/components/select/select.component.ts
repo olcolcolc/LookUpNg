@@ -107,7 +107,7 @@ export class SelectComponent implements OnInit {
     private destinationService: DestinationService,
     private summaryService: SummaryService,
     @Inject(ToastService) private toastService: ToastService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -124,7 +124,6 @@ export class SelectComponent implements OnInit {
   // Select Origin handler
   onOriginItemClick(destination: Destination): void {
     this.selectedOrigin = destination.desc;
-    this.isOriginMenuOpen = false;
 
     // Do not show selected destionation in origin available options
     this.availableDestinations = this.destinations.filter(
@@ -142,12 +141,14 @@ export class SelectComponent implements OnInit {
 
     // Send selectedOrigin to skyscannerService
     this.summaryService.selectedOriginCode = destination.code;
+
+    // Close submenu
+    this.isOriginMenuOpen = false;
   }
 
   // Select Destination handler
   onDestinationItemClick(destination: Destination): void {
     this.selectedDestination = destination.desc;
-    this.isDestinationMenuOpen = false;
 
     // Do not show selected origin in destination available options
     this.availableOrigins = this.destinations.filter(
@@ -162,16 +163,20 @@ export class SelectComponent implements OnInit {
 
     // Send selectedDestination to skyscannerService
     this.summaryService.selectedDestinationCode = destination.code;
+
+    // Close submenu
+    this.isDestinationMenuOpen = false;
   }
 
   // Select Luggage handler
   onLuggageItemClick(item: string): void {
     this.selectedLuggageOption = item;
-    this.isLuggageMenuOpen = false;
 
     // Send selectedLuggageOption to summaryService
     this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
 
+    // Close submenu
+    this.isLuggageMenuOpen = false;
   }
 
   // Select Passengers handler
@@ -216,12 +221,8 @@ export class SelectComponent implements OnInit {
     // Send passengerCount to summaryService
     this.summaryService.selectedPassengerCount = this.passengerCount;
 
+    // Close submenu
     this.isPassengerMenuOpen = false;
-
-    // Method to get the selected passenger count
-    // getSelectedPassengerCount(): number {
-    //   return this.passengerCount;
-    // }
   }
 
   //Submenus handlers
@@ -258,6 +259,7 @@ export class SelectComponent implements OnInit {
     } else {
       this.authService.loggedIn$.subscribe(async (loggedIn: any) => {
         if (!loggedIn) {
+          // Toast message if user is not logged in
           this.toastService.setWarningMessage('You have to log in');
         } else {
           // After logging in

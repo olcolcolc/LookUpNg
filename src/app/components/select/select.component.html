@@ -3,11 +3,13 @@
   <div class="selectContainer__ups">
     <!-- ORIGIN -->
     <div class="selectContainer__origin">
+      <!-- Button for selecting origin -->
       <button class="selectContainer__originBtn" (click)="toggleOriginMenu()">
         <fa-icon [icon]="originIcon"></fa-icon>
         {{ selectedOrigin ? selectedOrigin : 'Origin' }}
       </button>
 
+      <!-- Submenu for selecting origin -->
       <div class="selectContainer__origin__submenu" *ngIf="isOriginMenuOpen" [@submenuAnimation]="'slide'">
         <ul *ngIf="destinations" >
           <li class="option" *ngFor="let destination of availableOrigins" (click)="onOriginItemClick(destination)">
@@ -19,6 +21,7 @@
 
     <!-- DATE BUTTON AND SUBMENU -->
     <div class="selectContainer__dateBtn">
+      <!-- Date button and datepicker submenu -->
       <mat-form-field class="example-full-width" [@submenuAnimation]="'slide'">
         <mat-label>Date</mat-label>
         <input
@@ -36,6 +39,7 @@
 
     <!-- DESTINATION -->
     <div class="selectContainer__destination">
+      <!-- Button for selecting destination -->
       <button
         class="selectContainer__destinationBtn"
         (click)="toggleDestinationMenu()"
@@ -44,6 +48,7 @@
         {{ selectedDestination ? selectedDestination : 'Destination' }}
       </button>
 
+      <!-- Submenu for selecting destination -->
       <div
         class="selectContainer__destination__submenu"
         *ngIf="isDestinationMenuOpen"
@@ -61,11 +66,13 @@
   <div class="selectContainer__downs">
     <!-- PASSENGERS -->
     <div class="selectContainer__passengers">
+      <!-- Button for selecting passengers -->
       <button class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
         <fa-icon [icon]="passengersIcon"></fa-icon>
         {{ passengerCount ? passengerCount : "Passengers" }}
       </button>
 
+      <!-- Submenu for selecting passengers -->
       <div class="selectContainer__passengers__submenu" *ngIf="isPassengerMenuOpen" [@submenuAnimation]="'slide'">
 
         <div class="selectContainer__passengers__submenu_inputs">
@@ -141,10 +148,12 @@
 
     <!-- LUGGAGE -->
     <div class="selectContainer__luggage">
+      <!-- Button for selecting luggage -->
       <button class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
         <fa-icon [icon]="luggageIcon"></fa-icon>
         {{selectedLuggageOption ? selectedLuggageOption : "Luggage"}}
       </button>
+      <!-- Submenu for selecting luggage -->
       <div class="selectContainer__luggage__submenu" *ngIf="isLuggageMenuOpen" [@submenuAnimation]="'slide'">
         <ul>
           <li class="option" *ngFor="let luggageOption of luggageOptions" (click)="onLuggageItemClick(luggageOption)">

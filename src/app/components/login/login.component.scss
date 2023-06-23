@@ -55,6 +55,8 @@
   }
 }
 
+
+// Red border while error
 input.ng-invalid.ng-touched {
   animation: blink 0.5s linear 2;
   border: 3px solid  #ff4136;
@@ -66,6 +68,7 @@ input.ng-invalid.ng-touched {
   100% { border-color:  #ff4136;; }
 }
 
+// Error message style
 ::ng-deep.error-message {
   color:  #ff4136;
   font-size: 14px;

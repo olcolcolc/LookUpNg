@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
-import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud, faPlane } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faCalendarAlt,
+  faMapMarker,
+  faUser,
+  faSuitcase,
+  faInfoCircle,
+  faSun,
+  faMoon,
+  faCloud,
+  faPlane,
+} from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../environments/environment.prod';
 import axios from 'axios';
 import { ToastService } from 'src/app/services/toast.service';
@@ -13,16 +24,19 @@ import { ToastService } from 'src/app/services/toast.service';
 export class SummaryComponent implements OnInit {
   weatherData: any;
 
+  // Selected option variables
   selectedOrigin: string | null = null;
   selectedDestination: string | null = null;
   selectedDate: Date | null = null;
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
 
+  // Price variables
   ticketPrice: number = 0;
   selectedCurrency: string = 'PLN';
   currencySymbol: string = 'zł';
 
+  // Icons
   originIcon = faHome;
   dateIcon = faCalendarAlt;
   destinationIcon = faMapMarker;
@@ -34,9 +48,13 @@ export class SummaryComponent implements OnInit {
   cloudIcon = faCloud;
   planeIcon = faPlane;
 
+  // Loading animation boolean
   loadingAnimation: boolean = false;
 
-  constructor(private summaryService: SummaryService, private toastService: ToastService) {}
+  constructor(
+    private summaryService: SummaryService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
@@ -48,13 +66,15 @@ export class SummaryComponent implements OnInit {
       main: {},
       isDay: true,
     };
+    // Get weather data
     if (this.selectedDestination !== null) {
       this.getWeatherData(this.selectedDestination);
     }
-    this.fetchCheapestPrice()
+    // Get ticket price data
+    this.fetchCheapestPrice();
   }
 
-
+  // Format date to object
   formatSelectedDate(): string {
     if (this.selectedDate) {
       const options: Intl.DateTimeFormatOptions = {
@@ -67,17 +87,30 @@ export class SummaryComponent implements OnInit {
     return 'Date';
   }
 
+  // Currency
   setCurrency(currency: string, symbol: string): void {
     this.selectedCurrency = currency;
     this.currencySymbol = symbol;
   }
 
-
+  // Convert flight price
+  getConvertedPrice(): number {
+    const exchangeRates: { [key: string]: number } = {
+      PLN: 1,
+      EUR: 0.23,
+      USD: 0.27,
+    };
+    if (exchangeRates[this.selectedCurrency]) {
+      return this.ticketPrice * exchangeRates[this.selectedCurrency];
+    }
+    return this.ticketPrice;
+  }
 
   setSelectedDate(date: Date) {
     this.selectedDate = date;
   }
 
+  // Weather functions
   getWeatherData(selectedDestination: string): void {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${selectedDestination}&appid=${environment.apiKeyWeather}`
@@ -94,33 +127,26 @@ export class SummaryComponent implements OnInit {
     this.weatherData.sunset_time = sunsetTime.toLocaleTimeString();
     let currentDate = new Date();
     this.weatherData.isDay = currentDate.getTime() < sunsetTime.getTime();
-    this.weatherData.temp_celcius = (this.weatherData.main.temp - 273.15).toFixed(0);
+    this.weatherData.temp_celcius = (
+      this.weatherData.main.temp - 273.15
+    ).toFixed(0);
   }
 
-
-// Convert flight price
-  getConvertedPrice(): number {
-    const exchangeRates: { [key: string]: number } = {
-      PLN: 1,
-      EUR: 0.23,
-      USD: 0.27,
-    };
-    if (exchangeRates[this.selectedCurrency]) {
-      return this.ticketPrice * exchangeRates[this.selectedCurrency];
-    }
-    return this.ticketPrice;
-  }
-
-
-    //Search for cheapest flight ticket
-
+  //Search for cheapest flight ticket
   async fetchCheapestPrice() {
-
+    // Start loading animation
     this.loadingAnimation = true;
 
-    let selectedYear: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
-    let selectedMonth: number = this.selectedDate ? (this.selectedDate?.getMonth()+1) : 0;
-    let selectedDay: number = this.selectedDate ? (this.selectedDate?.getUTCDate()+1) : 0;
+    // Convert date
+    let selectedYear: number = this.selectedDate
+      ? this.selectedDate?.getFullYear()
+      : 0;
+    let selectedMonth: number = this.selectedDate
+      ? this.selectedDate?.getMonth() + 1
+      : 0;
+    let selectedDay: number = this.selectedDate
+      ? this.selectedDate?.getUTCDate() + 1
+      : 0;
 
     const options = {
       method: 'POST',
@@ -128,7 +154,7 @@ export class SummaryComponent implements OnInit {
       headers: {
         'content-type': 'application/json',
         'X-RapidAPI-Key': `${environment.apiKeySkyscanner}`,
-        'X-RapidAPI-Host': 'skyscanner-api.p.rapidapi.com'
+        'X-RapidAPI-Host': 'skyscanner-api.p.rapidapi.com',
       },
       data: {
         query: {
@@ -138,41 +164,44 @@ export class SummaryComponent implements OnInit {
           queryLegs: [
             {
               originPlaceId: { iata: this.summaryService.selectedOriginCode },
-              destinationPlaceId: { iata: this.summaryService.selectedDestinationCode },
+              destinationPlaceId: {
+                iata: this.summaryService.selectedDestinationCode,
+              },
               date: {
                 year: selectedYear,
                 month: selectedMonth,
-                day: selectedDay
-              }
-            }
+                day: selectedDay,
+              },
+            },
           ],
           cabinClass: 'CABIN_CLASS_ECONOMY',
           adults: this.selectedPassengerCount,
-          childrenAges: [3, 9]
-        }
-      }
+          childrenAges: [3, 9],
+        },
+      },
     };
 
     try {
       const response = await axios.request(options);
 
       function extractCheapestPrice(response: any): number {
-        const itineraryId = response.data.content.sortingOptions.cheapest[0].itineraryId;
-        const itineraryObject = response.data.content.results.itineraries[itineraryId];
-        return parseInt(itineraryObject.pricingOptions[0].price.amount)
+        const itineraryId =
+          response.data.content.sortingOptions.cheapest[0].itineraryId;
+        const itineraryObject =
+          response.data.content.results.itineraries[itineraryId];
+        return parseInt(itineraryObject.pricingOptions[0].price.amount);
       }
 
       this.ticketPrice = extractCheapestPrice(response);
-      this.loadingAnimation = false;
 
+      // Stop loading animation
+      this.loadingAnimation = false;
     } catch (error) {
       this.loadingAnimation = false;
       console.error(error);
-      this.toastService.setWarningMessage("Fetching flights failed")
+      // Set warning message if fetching's failed
+      this.toastService.setWarningMessage('Fetching flights failed');
       throw error;
     }
   }
 }
-
-
-

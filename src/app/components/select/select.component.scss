@@ -18,7 +18,7 @@
     flex-wrap: wrap;
   }
 
-  // buttons
+  // Buttons to show submenus
   &__originBtn,
   &__dateBtn,
   &__destinationBtn,
@@ -50,14 +50,13 @@
     color: grey;
   }
 
-  &__submit:hover{
+  &__submit:hover {
     color: yellow;
   }
 
-
+  // Submit and accept passengers buttons
   &__submit,
-  &__passengers__submenu__acceptBtn
-  {
+  &__passengers__submenu__acceptBtn {
     cursor: pointer;
     background-color: #4392f1;
     color: #fff;
@@ -69,6 +68,7 @@
     font-family: "Quicksand", sans-serif;
   }
 
+  // Submenus
   &__origin__submenu,
   &__date__submenu,
   &__destination__submenu,
@@ -86,7 +86,6 @@
     color: #88878b;
     margin-bottom: 5px;
     z-index: 2;
-
   }
 
   // SUBMENUS POSITION
@@ -98,7 +97,7 @@
 
   &__destination__submenu {
     left: 29rem;
-    top: -9rem;
+    top: -8rem;
     width: 180px;
   }
 
@@ -111,47 +110,47 @@
     left: -1rem;
     top: 12rem;
 
-    &__note{
+    &__note {
       display: flex;
       text-align: center;
     }
-    &_div{
+    &_div {
       display: flex;
       padding: 0.5em;
       justify-content: space-between;
-      &__left__title{
+      &__left__title {
         font-weight: bold;
         color: black;
       }
-      &__right select{
-        cursor: pointer
+      &__right select {
+        cursor: pointer;
       }
     }
-    &__acceptBtn{
+    &__acceptBtn {
       padding: 15px 0;
     }
-    &__count{
+    &__count {
       margin-left: 15px;
     }
-
   }
 
-  &__luggage__submenu{
+  &__luggage__submenu {
     right: 17rem;
   }
-  & ul{
+  & ul {
     padding: 0 1.5rem;
     margin: 14px 0;
-
+  }
 }
 
-}
-
-
+// Icons
 fa-icon {
   margin-right: 10px;
+  font-size: 20px;
+  margin-left: 10px;
 }
 
+// Origin, destination and luggage options
 ul {
   list-style-type: none;
 }
@@ -169,68 +168,60 @@ li {
   cursor: pointer;
 }
 
+// Datepicker icon
 mat-datepicker-toggle {
   color: black;
   width: 180px;
 }
 
-fa-icon {
-  font-size: 20px;
-  margin-left: 10px;
-}
-
 @media (max-width: 720px) {
-  .selectContainer{
+  .selectContainer {
     top: 20%;
     border-radius: 0;
 
-  &__ups{
-    flex-direction: column;
-  }
-  &__downs {
-    flex-direction: column;
-  }
+    &__ups {
+      flex-direction: column;
+    }
+    &__downs {
+      flex-direction: column;
+    }
 
-  &__originBtn,
-  &__dateBtn,
-  &__destinationBtn,
-  &__passengersBtn,
-  &__luggageBtn,
-  &__passengers__submenu__acceptBtn,
-  &__submit {
-    width: 300px;
+    &__originBtn,
+    &__dateBtn,
+    &__destinationBtn,
+    &__passengersBtn,
+    &__luggageBtn,
+    &__passengers__submenu__acceptBtn,
+    &__submit {
+      width: 300px;
+    }
+
+    &__origin__submenu,
+    &__destination__submenu,
+    &__passengers__submenu,
+    &__luggage__submenu {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: auto 0;
+      left: 0;
+      top: 5em;
+    }
+
+    &__origin__submenu {
+      top: 5em;
+    }
+
+    &__destination__submenu {
+      top: 15em;
+    }
+
+    &__passengers__submenu {
+      top: 20em;
+    }
+
+    &__luggage__submenu {
+      top: 25em;
+    }
   }
-
-  &__origin__submenu,
-  &__destination__submenu,
-  &__passengers__submenu,
-  &__luggage__submenu {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: auto 0;
-    left: 0;
-    top: 5em;
-  }
-
-  &__origin__submenu{
-    top: 5em;
-  }
-
-  &__destination__submenu{
-    top: 15em;
-  }
-
-  &__passengers__submenu{
-    top: 20em;
-  }
-
-  &__luggage__submenu {
-    top: 25em;
-  }
-
-
 }
-}
-
-
