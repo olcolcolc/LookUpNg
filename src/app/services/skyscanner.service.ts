@@ -7,6 +7,16 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root'
 })
 export class SkyscannerService {
+
+  selectedOrigin: string | null = null;
+  selectedDestination: string | null = null;
+  selectedDate: Date | null = null;
+  selectedPassengerCount: number = 0;
+  selectedLuggageOption: string | null = null;
+
+  setSelectedDate(date: Date) {
+    this.selectedDate = date;
+  }
   apiKeySkyscanner: string = environment.apiKeySkyscanner;
 
 
