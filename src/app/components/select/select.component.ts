@@ -200,12 +200,22 @@ export class SelectComponent implements OnInit {
       );
       return;
     }
-  }
 
-  // Method to get the selected passenger count
+    this.selectedOption_adult = adultCount;
+    this.selectedOption_children = childrenCount;
+    this.selectedOption_babies = babiesCount;
+    this.passengerCount = adultCount + childrenCount + babiesCount;
+
+    // Send passengerCount to summaryService
+    this.summaryService.selectedPassengerCount = this.passengerCount;
+    this.isPassengerMenuOpen = false;
+
+      // Method to get the selected passenger count
   // getSelectedPassengerCount(): number {
   //   return this.passengerCount;
   // }
+  }
+
 
   //Submenus handlers
   toggleOriginMenu(): void {
