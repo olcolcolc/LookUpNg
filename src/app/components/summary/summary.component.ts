@@ -120,7 +120,7 @@ export class SummaryComponent implements OnInit {
 
     const options = {
       method: 'POST',
-      url: 'https://skyscanner-api.p.rapidapi.com/v3/flights/live/search/create',
+      url: 'https://skyscanner-api.p.rapidapi.com/v3e/flights/live/search/synced',
       headers: {
         'content-type': 'application/json',
         'X-RapidAPI-Key': `${environment.apiKeySkyscanner}`,
@@ -152,9 +152,9 @@ export class SummaryComponent implements OnInit {
     try {
       const response = await axios.request(options);
 
-      function extractCheapestPrice(data: any): number {
-        const itineraryId = data.content.sortingOptions.cheapest[0].itineraryId;
-        const itineraryObject = data.content.results.itineraries[itineraryId];
+      function extractCheapestPrice(response: any): number {
+        const itineraryId = response.data.content.sortingOptions.cheapest[0].itineraryId;
+        const itineraryObject = response.data.content.results.itineraries[itineraryId];
         return parseInt(itineraryObject.pricingOptions[0].price.amount)
       }
       return this.ticketPrice = extractCheapestPrice(response);
