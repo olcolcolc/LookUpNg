@@ -3,23 +3,27 @@
   <div class="summary__ticket">
     <div class="summary__ticket__left">
       <!-- Origin -->
-      <p>From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></p>
+      <div class="summary__ticket__label">
+        From: {{ selectedOrigin }} <fa-icon [icon]="originIcon"></fa-icon></div>
 
       <!-- Destination -->
-      <p>
-        To: {{ selectedDestination }}
+      <div class="summary__ticket__label">
+        To:
+
+         {{ selectedDestination }}
         <fa-icon [icon]="destinationIcon"></fa-icon>
-      </p>
+      </div>
 
       <!-- Passengers -->
-      <p>
+      <div class="summary__ticket__label">
         Passengers: {{ selectedPassengerCount }}
         <fa-icon [icon]="passengersIcon"></fa-icon>
-      </p>
+      </div>
 
       <!-- Ticket price -->
       <div class="summary__price">
-        <p>Price in:</p>
+        <div class="summary__ticket__label">
+          Price in:</div>
 
         <!-- Currency buttons -->
         <div class="summary__price__currencies">
@@ -58,15 +62,15 @@
 
     <!-- Luggage -->
     <div class="summary__ticket__right">
-      <p>
+      <div class="summary__ticket__label">
         Luggage: {{ selectedLuggageOption }}
         <fa-icon [icon]="luggageIcon"></fa-icon>
-      </p>
+      </div>
 
       <!-- Date -->
-      <p>
+      <div class="summary__ticket__label">
         Date: {{ formatSelectedDate() }} <fa-icon [icon]="dateIcon"></fa-icon>
-      </p>
+      </div>
 
       <!-- Weather widget -->
       <div class="weatherDiv">

@@ -17,11 +17,12 @@
     width: 50em;
     padding: 0 100px;
     font-size: 16px;
-    p {
-      padding-top: 10px;
+    &__label {
+      padding-top: 20px;
     }
     &__left,
     &__right {
+      margin-left: 3em;
       width: 300px;
     }
   }
@@ -53,6 +54,7 @@
       color: grey;
       cursor: pointer;
       margin-left: 1rem;
+      margin-top: 1.2em;
       border: 1px solid grey;
       border-radius: 5px;
       font-size: 0.8em;
