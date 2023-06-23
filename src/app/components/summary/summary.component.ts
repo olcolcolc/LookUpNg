@@ -115,8 +115,8 @@ export class SummaryComponent implements OnInit {
   async fetchCheapestPrice(): Promise<any> {
 
     let selectedYear: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
-    let selectedMonth: number = this.selectedDate ? this.selectedDate?.getMonth() : 0;
-    let selectedDay: number = this.selectedDate ? this.selectedDate?.getDay() : 0;
+    let selectedMonth: number = this.selectedDate ? (this.selectedDate?.getMonth()+1) : 0;
+    let selectedDay: number = this.selectedDate ? (this.selectedDate?.getUTCDate()+1) : 0;
 
     const options = {
       method: 'POST',
@@ -133,8 +133,8 @@ export class SummaryComponent implements OnInit {
           currency: 'PLN',
           queryLegs: [
             {
-              originPlaceId: { iata: this.selectedOrigin },
-              destinationPlaceId: { iata: this.selectedDestination },
+              originPlaceId: { iata: this.summaryService.selectedOriginCode },
+              destinationPlaceId: { iata: this.summaryService.selectedDestinationCode },
               date: {
                 year: selectedYear,
                 month: selectedMonth,

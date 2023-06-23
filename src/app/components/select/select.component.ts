@@ -143,7 +143,7 @@ export class SelectComponent implements OnInit {
     this.summaryService.selectedOrigin = destination.desc;
 
     // Send selectedOrigin to skyscannerService
-    this.skyscannerService.selectedOrigin = destination.code;
+    this.summaryService.selectedOriginCode = destination.code;
   }
 
   // Select Destination handler
@@ -163,7 +163,7 @@ export class SelectComponent implements OnInit {
     this.summaryService.selectedDestination = destination.desc;
 
     // Send selectedDestination to skyscannerService
-    this.skyscannerService.selectedDestination = destination.code;
+    this.summaryService.selectedDestinationCode = destination.code;
   }
 
   // Select Luggage handler
@@ -223,9 +223,7 @@ export class SelectComponent implements OnInit {
     // Send selectedDestination to skyscannerService
     this.skyscannerService.selectedPassengerCount = this.passengerCount;
 
-
     this.isPassengerMenuOpen = false;
-
 
     // Method to get the selected passenger count
     // getSelectedPassengerCount(): number {
@@ -273,7 +271,6 @@ export class SelectComponent implements OnInit {
           this.submit.emit();
           this.summaryService.selectedDate = this.selectedDate;
           this.skyscannerService.selectedDate = this.selectedDate;
-          // this.summaryService.cheapestTicketOption = await this.skyscannerService.fetchCheapestPrice();
         }
       });
     }

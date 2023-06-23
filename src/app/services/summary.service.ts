@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class SummaryService {
   selectedOrigin: string | null = null;
+  selectedOriginCode: string | null = null
   selectedDestination: string | null = null;
+  selectedDestinationCode: string | null = null
   selectedDate: Date | null = null;
   selectedPassengerCount: number = 0;
   selectedLuggageOption: string | null = null;
