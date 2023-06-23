@@ -200,6 +200,36 @@ fa-icon {
   &__submit {
     width: 300px;
   }
+
+  &__origin__submenu,
+  &__destination__submenu,
+  &__passengers__submenu,
+  &__luggage__submenu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: auto 0;
+    left: 0;
+    top: 5em;
+  }
+
+  &__origin__submenu{
+    top: 5em;
+  }
+
+  &__destination__submenu{
+    top: 15em;
+  }
+
+  &__passengers__submenu{
+    top: 20em;
+  }
+
+  &__luggage__submenu {
+    top: 25em;
+  }
+
+
 }
 }
 
