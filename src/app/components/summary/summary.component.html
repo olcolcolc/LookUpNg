@@ -13,6 +13,8 @@
       </p>
       <div class="summary__price">
         <p>Price in:</p>
+
+
         <div class="summary__price__currencies">
           <button
             class="summary__price__currencyBtn"
@@ -35,7 +37,10 @@
           </button>
         </div>
       </div>
-      <p class="summary__price__value">
+      <div *ngIf="loadingAnimation" class="loadingAnimation">
+    <fa-icon [icon]="planeIcon"></fa-icon>
+        </div>
+      <p class="summary__price__value" *ngIf="!loadingAnimation">
         {{ getConvertedPrice() | number : "1.2-2" }} {{ currencySymbol }}
       </p>
     </div>

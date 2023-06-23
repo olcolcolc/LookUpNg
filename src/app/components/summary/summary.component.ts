@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
-import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud, faPlane } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../environments/environment.prod';
 import { SkyscannerService } from 'src/app/services/skyscanner.service';
 import axios from 'axios';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-summary',
@@ -32,8 +33,11 @@ export class SummaryComponent implements OnInit {
   sunIcon = faSun;
   moonIcon = faMoon;
   cloudIcon = faCloud;
+  planeIcon = faPlane;
 
-  constructor(private summaryService: SummaryService, private skyscannerService: SkyscannerService) {}
+  loadingAnimation: boolean = false;
+
+  constructor(private summaryService: SummaryService, private skyscannerService: SkyscannerService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;
@@ -92,14 +96,10 @@ export class SummaryComponent implements OnInit {
     let currentDate = new Date();
     this.weatherData.isDay = currentDate.getTime() < sunsetTime.getTime();
     this.weatherData.temp_celcius = (this.weatherData.main.temp - 273.15).toFixed(0);
-    // this.weatherData.temp_min = (this.weatherData.main.temp_min - 273.15).toFixed(0);
-    // this.weatherData.temp_max = (this.weatherData.main.temp_max - 273.15).toFixed(0);
-    // this.weatherData.temp_feels_like = (this.weatherData.main.feels_like - 273.15).toFixed(0);
   }
 
 
-  //Search for cheapest flight ticket
-
+// Convert flight price
   getConvertedPrice(): number {
     const exchangeRates: { [key: string]: number } = {
       PLN: 1,
@@ -112,7 +112,12 @@ export class SummaryComponent implements OnInit {
     return this.ticketPrice;
   }
 
-  async fetchCheapestPrice(): Promise<any> {
+
+    //Search for cheapest flight ticket
+
+  async fetchCheapestPrice() {
+
+    this.loadingAnimation = true;
 
     let selectedYear: number = this.selectedDate ? this.selectedDate?.getFullYear() : 0;
     let selectedMonth: number = this.selectedDate ? (this.selectedDate?.getMonth()+1) : 0;
@@ -157,10 +162,14 @@ export class SummaryComponent implements OnInit {
         const itineraryObject = response.data.content.results.itineraries[itineraryId];
         return parseInt(itineraryObject.pricingOptions[0].price.amount)
       }
-      return this.ticketPrice = extractCheapestPrice(response);
+
+      this.ticketPrice = extractCheapestPrice(response);
+      this.loadingAnimation = false;
 
     } catch (error) {
+      this.loadingAnimation = false;
       console.error(error);
+      this.toastService.setWarningMessage("Fetching flights failed")
       throw error;
     }
   }
