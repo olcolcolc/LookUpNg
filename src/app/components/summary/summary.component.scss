@@ -135,6 +135,24 @@
   }
 }
 
+.loadingAnimation {
+    height: 20px;
+    width: 20px;
+    font-size: 34px;
+    color: #4392f1;
+    margin: 40px auto;
+    animation: spin 1.3s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+
+
+
 @media (max-width: 720px) {
   .summary__ticket {
     flex-direction: column;
