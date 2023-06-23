@@ -19,7 +19,6 @@ import {
   trigger,
 } from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
-import { SkyscannerService } from 'src/app/services/skyscanner.service';
 
 @Component({
   selector: 'app-select',
@@ -109,7 +108,6 @@ export class SelectComponent implements OnInit {
     private summaryService: SummaryService,
     @Inject(ToastService) private toastService: ToastService,
     private authService: AuthService,
-    private skyscannerService: SkyscannerService
   ) {}
 
   ngOnInit(): void {
@@ -174,8 +172,6 @@ export class SelectComponent implements OnInit {
     // Send selectedLuggageOption to summaryService
     this.summaryService.selectedLuggageOption = this.selectedLuggageOption;
 
-    // Send selectedDestination to skyscannerService
-    this.skyscannerService.selectedLuggageOption = this.selectedLuggageOption;
   }
 
   // Select Passengers handler
@@ -219,9 +215,6 @@ export class SelectComponent implements OnInit {
 
     // Send passengerCount to summaryService
     this.summaryService.selectedPassengerCount = this.passengerCount;
-
-    // Send selectedDestination to skyscannerService
-    this.skyscannerService.selectedPassengerCount = this.passengerCount;
 
     this.isPassengerMenuOpen = false;
 
@@ -270,7 +263,6 @@ export class SelectComponent implements OnInit {
           // After logging in
           this.submit.emit();
           this.summaryService.selectedDate = this.selectedDate;
-          this.skyscannerService.selectedDate = this.selectedDate;
         }
       });
     }

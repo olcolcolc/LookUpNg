@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SummaryService } from 'src/app/services/summary.service';
 import { faHome, faCalendarAlt, faMapMarker, faUser, faSuitcase, faInfoCircle, faSun, faMoon, faCloud, faPlane } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../environments/environment.prod';
-import { SkyscannerService } from 'src/app/services/skyscanner.service';
 import axios from 'axios';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -37,7 +36,7 @@ export class SummaryComponent implements OnInit {
 
   loadingAnimation: boolean = false;
 
-  constructor(private summaryService: SummaryService, private skyscannerService: SkyscannerService, private toastService: ToastService) {}
+  constructor(private summaryService: SummaryService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.selectedOrigin = this.summaryService.selectedOrigin;

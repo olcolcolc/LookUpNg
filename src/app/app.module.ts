@@ -19,7 +19,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SummaryComponent } from './components/summary/summary.component';
 import { SummaryService } from './services/summary.service';
 import { CurrencyConversionPipe } from './pipes/currency-conversion.pipe';
-import { SkyscannerService } from './services/skyscanner.service';
 import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireAuthModule} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.prod';
@@ -59,7 +58,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [DestinationService, SummaryService, SkyscannerService, AuthService, ToastService],
+  providers: [DestinationService, SummaryService, AuthService, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
