@@ -1,4 +1,6 @@
 <div class="login__container">
+
+  <div>
   <!-- Login Form -->
   <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showSignupForm">
     <input type="text" formControlName="email" placeholder="E-mail">
@@ -24,6 +26,7 @@
     <button class="signup__enterBtn" (click)="toggleSignupForm()">Log in</button>
     <!-- Button to toggle display of login form on click -->
   </form>
+</div>
 
   <!-- Error Message -->
   <div class="error-message">{{errorMessage}}</div>

@@ -2,7 +2,7 @@
 <div class="selectContainer">
   <div class="selectContainer__ups">
     <!-- ORIGIN -->
-    <div class="selectContainer__origin">
+    <div  type="button" class="selectContainer__origin">
       <!-- Button for selecting origin -->
       <button class="selectContainer__originBtn" (click)="toggleOriginMenu()">
         <fa-icon [icon]="originIcon"></fa-icon>
@@ -20,7 +20,7 @@
     </div>
 
     <!-- DATE BUTTON AND SUBMENU -->
-    <div class="selectContainer__dateBtn">
+    <div type="button" class="selectContainer__dateBtn">
       <!-- Date button and datepicker submenu -->
       <mat-form-field class="example-full-width" [@submenuAnimation]="'slide'">
         <mat-label>Date</mat-label>
@@ -67,7 +67,7 @@
     <!-- PASSENGERS -->
     <div class="selectContainer__passengers">
       <!-- Button for selecting passengers -->
-      <button class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
+      <button  type="button" class="selectContainer__passengersBtn" (click)="togglePassengerMenu()">
         <fa-icon [icon]="passengersIcon"></fa-icon>
         {{ passengerCount ? passengerCount : "Passengers" }}
       </button>
@@ -132,7 +132,7 @@
             </div>
           </div>
         </div>
-        <button class="selectContainer__passengers__submenu__acceptBtn" (click)="onAcceptPassengerSelection()">
+        <button type="button" class="selectContainer__passengers__submenu__acceptBtn" (click)="onAcceptPassengerSelection()">
           Accept
         </button>
         <div class="selectContainer__passengers__submenu__note">
@@ -149,7 +149,7 @@
     <!-- LUGGAGE -->
     <div class="selectContainer__luggage">
       <!-- Button for selecting luggage -->
-      <button class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
+      <button  type="button" class="selectContainer__luggageBtn" (click)="toggleLuggageMenu()">
         <fa-icon [icon]="luggageIcon"></fa-icon>
         {{selectedLuggageOption ? selectedLuggageOption : "Luggage"}}
       </button>
@@ -164,7 +164,7 @@
     </div>
 
     <!-- SELECT -->
-    <button class="selectContainer__submit" (click)="onSubmit()">Submit</button>
+    <button type="button" class="selectContainer__submit" (click)="onSubmit()">Submit</button>
   </div>
 
 </div>

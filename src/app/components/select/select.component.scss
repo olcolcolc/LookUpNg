@@ -108,7 +108,7 @@
     padding: 1rem;
     width: 250px;
     left: -1rem;
-    top: 12rem;
+    top: -15rem;
 
     &__note {
       display: flex;
@@ -178,6 +178,7 @@ mat-datepicker-toggle {
   .selectContainer {
     top: 20%;
     border-radius: 0;
+
 
     &__ups {
       flex-direction: column;
