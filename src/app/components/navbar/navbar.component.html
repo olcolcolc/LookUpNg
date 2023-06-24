@@ -4,8 +4,11 @@
       <img src="./assets/images/logo.png" alt="LookUp" />LookUp
     </a>
   </div>
-  <div class="navbar__login"
-  appClickOutside (clickedOutside)="closeLoginComponent()">
+  <div
+    class="navbar__login"
+    appClickOutside
+    (clickedOutside)="closeLoginComponent()"
+  >
     <button
       class="navbar__login--btn"
       (click)="toggleLoginComponent()"
@@ -17,9 +20,10 @@
     >
       Login
     </button>
-    <app-login
-    [@fadeInOut]="isLoginComponentVisible ? 'open' : 'close'">
-    </app-login>
+    <div *ngIf="isLoginComponentVisible" [@fadeInOut]="isLoginComponentVisible ? 'open' : 'close'">
+      >
+      <app-login></app-login>
+    </div>
     <button *ngIf="loggedIn" class="navbar__logout--btn" (click)="logout()">
       Logout
     </button>
