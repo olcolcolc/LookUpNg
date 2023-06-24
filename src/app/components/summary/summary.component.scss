@@ -66,14 +66,29 @@
         font-weight: bold;
       }
     }
-    &__value {
-      margin-left: 0.7em;
-      margin-top: 0.5em;
-      font-size: 2.5em;
-    }
+  }
+
+  // Animation
+  opacity: 0;
+  transform: translateY(50px);
+  animation-name: fadeAndSlide;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeAndSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+// Weather widget
 .weatherDiv {
   margin-top: 20px;
   padding-top: 25px;
@@ -97,6 +112,7 @@
   }
 }
 
+// Icons
 .sun,
 .cloud,
 .moon {
@@ -137,23 +153,22 @@
   }
 }
 
+
+// Loading plane icon
 .loadingAnimation {
-    height: 20px;
-    width: 20px;
-    font-size: 34px;
-    color: #4392f1;
-    margin: 40px auto;
-    animation: spin 1.3s linear infinite;
+  height: 20px;
+  width: 20px;
+  font-size: 34px;
+  color: #4392f1;
+  margin: 40px auto;
+  animation: spin 1.3s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(-360deg);
   }
-
-  @keyframes spin {
-    to {
-      transform: rotate(-360deg);
-    }
-  }
-
-
-
+}
 
 @media (max-width: 720px) {
   .summary__ticket {
