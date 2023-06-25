@@ -8,7 +8,7 @@
   margin-left: 1px;
   background-color: #fff;
   color: #12345c;
-  padding:0 20px;
+  padding: 0 20px;
   font-size: 16px;
 
   box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.3);
@@ -19,14 +19,14 @@
   cursor: pointer;
   direction: ltr;
   align-items: center;
-  font-family: "Quicksand",sans-serif !important;
+  font-family: "Quicksand", sans-serif !important;
   animation: slideInToastAnimation 5s ease-in;
 
-  &__message{
+  &__message {
     margin-left: 10px;
   }
 
-  &:before{
+  &:before {
     width: 10px;
     background-color: #12345c;
     right: 190px;
@@ -52,10 +52,9 @@
   }
 }
 
-
-
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 700px) {
   .toast {
-    margin-bottom: 0;
+    top: 6em;
+    left: 5em;
   }
 }
