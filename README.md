@@ -27,7 +27,7 @@ The LookUpNg application is built using the following technologies:
 - TypeScript - Programming language for building Angular applications.
 - Firebase - Platform for building and hosting web applications.
 - SCSS - Styling language for defining the appearance and layout of the application.
-- REST API - Used to connect and communicate with external APIs, such as the Skyscanner API.
+- REST API - Used to connect and communicate with external APIs, such as the Skyscanner API, Openweather API.
 
 ## Installation
 
