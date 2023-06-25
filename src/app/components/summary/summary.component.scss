@@ -68,6 +68,13 @@
     }
   }
 
+  ::ng-deep.summary__price__value{
+    font-size: 36px !important;
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+
   // Animation
   opacity: 0;
   transform: translateY(50px);
