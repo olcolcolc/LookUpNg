@@ -23,7 +23,6 @@ Feel free to explore the LookUpNg application, search for flights, and plan your
 The LookUpNg application is built using the following technologies:
 
 - Angular - JavaScript framework for building web applications.
-- HTML - Markup language for structuring the content of web applications.
 - TypeScript - Programming language for building Angular applications.
 - Firebase - Platform for building and hosting web applications.
 - SCSS - Styling language for defining the appearance and layout of the application.
