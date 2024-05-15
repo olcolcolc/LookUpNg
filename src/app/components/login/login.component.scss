@@ -82,7 +82,7 @@ input.ng-invalid.ng-touched {
     padding: auto 0;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 100% !important;
     margin: 0;
     flex-direction: column;
   }

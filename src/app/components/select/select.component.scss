@@ -91,13 +91,13 @@
   // SUBMENUS POSITION
   &__origin__submenu {
     left: 4rem;
-    top: -9rem;
+    top: -7rem;
     width: 180px;
   }
 
   &__destination__submenu {
     left: 29rem;
-    top: -8rem;
+    top: -7rem;
     width: 180px;
   }
 
@@ -135,6 +135,7 @@
   }
 
   &__luggage__submenu {
+    top: 2rem;
     right: 17rem;
   }
   & ul {
@@ -178,7 +179,6 @@ mat-datepicker-toggle {
   .selectContainer {
     top: 20%;
     border-radius: 0;
-
 
     &__ups {
       flex-direction: column;
